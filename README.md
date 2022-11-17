@@ -23,3 +23,5 @@ Alternatively, you could use the tool to bake files into the image or edit the i
 Here's a video talking through the source code from start to finish with the script in action. Some of the new tools are at the end of the video.
 
 https://www.youtube.com/watch?v=lu2b5DnMeYU
+
+Please feel free to take these tools and make them into something better, its all open source, and yours now.
