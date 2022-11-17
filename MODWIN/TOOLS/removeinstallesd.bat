@@ -1,0 +1,1 @@
+del :"C:\MODWIN\ISO\sources\install.esd"

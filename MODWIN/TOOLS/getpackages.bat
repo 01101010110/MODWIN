@@ -1,0 +1,1 @@
+dism.exe /Image:C:\MODWIN\PATH /Get-Packages && pause
