@@ -73,7 +73,7 @@ Dism /Image:C:\MODWIN\PATH /Disable-Feature /FeatureName:SMB1Protocol-Client
 Dism /Image:C:\MODWIN\PATH /Disable-Feature /FeatureName:SMB1Protocol-Deprecation
 Dism /Image:"C:\MODWIN\PATH" /cleanup-image /StartComponentCleanup /ResetBase  
 dism /Unmount-Image /MountDir:"C:\MODWIN\PATH" /Commit
-dism /export-image /SourceImageFile:"C:\MODWIN\WIM\mod.wim" /SourceIndex:1 /DestinationImageFile:"C:\MODWIN\ISO\sources\install.wim" /Compress:max /CheckIntegrity && pause
+dism /export-image /SourceImageFile:"C:\MODWIN\WIM\mod.wim" /SourceIndex:1 /DestinationImageFile:"C:\MODWIN\ISO\sources\install.esd" /Compress:recovery /CheckIntegrity && pause
 C:\MODWIN\oscdimg.exe -m -oc -u2 -udfver102 -bC:\MODWIN\ISO\efi\microsoft\boot\efisys_noprompt.bin C:\MODWIN\ISO C:\MODWIN\MOD\win10lite.iso
 rmdir "C:\MODWIN\ISO" /S /Q
 mkdir "C:\MODWIN\ISO"
