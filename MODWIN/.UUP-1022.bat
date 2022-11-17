@@ -42,7 +42,6 @@ dism.exe /Image:C:\MODWIN\PATH /Remove-ProvisionedAppxPackage /PackageName:Micro
 dism.exe /Image:C:\MODWIN\PATH /Remove-ProvisionedAppxPackage /PackageName:Microsoft.ZuneVideo_2019.19071.19011.0_neutral_~_8wekyb3d8bbwe
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-OneCore-ApplicationModel-Sync-Desktop-FOD-Package~31bf3856ad364e35~amd64~~10.0.19041.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-OneCore-DirectX-Database-FOD-Package~31bf3856ad364e35~amd64~~10.0.19041.1
-dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-Client-LanguagePack-Package~31bf3856ad364e35~amd64~en-US~10.0.19041.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-FodMetadata-Package~31bf3856ad364e35~amd64~~10.0.19041.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-Hello-Face-Migration-Package~31bf3856ad364e35~amd64~~10.0.19041.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-Hello-Face-Package~31bf3856ad364e35~amd64~~10.0.19041.1
