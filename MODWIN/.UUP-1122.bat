@@ -59,7 +59,6 @@ dism.exe /Image:C:\MODWIN\PATH /Remove-ProvisionedAppxPackage /PackageName:Micro
 dism.exe /Image:C:\MODWIN\PATH /Remove-ProvisionedAppxPackage /PackageName:MicrosoftWindows.Client.WebExperience_2022.507.446.0_neutral_~_cw5n1h2txyewy
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-OneCore-ApplicationModel-Sync-Desktop-FOD-Package~31bf3856ad364e35~amd64~~10.0.22621.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-OneCore-DirectX-Database-FOD-Package~31bf3856ad364e35~amd64~~10.0.22621.1
-dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-Client-LanguagePack-Package~31bf3856ad364e35~amd64~en-US~10.0.22621.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-FodMetadata-Package~31bf3856ad364e35~amd64~~10.0.22621.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-Hello-Face-Package~31bf3856ad364e35~amd64~~10.0.22621.1
 dism.exe /Image:C:\MODWIN\PATH /Remove-Package /PackageName:Microsoft-Windows-InternetExplorer-Optional-Package~31bf3856ad364e35~amd64~~11.0.22621.1
