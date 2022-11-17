@@ -23,7 +23,3 @@ Alternatively, you could use the tool to bake files into the image or edit the i
 Here's a video talking through the source code from start to finish with the script in action. Some of the new tools are at the end of the video.
 
 https://www.youtube.com/watch?v=lu2b5DnMeYU
-
-If downloading the tools from github You will need to add new folders to MODWIN. Name them: ISO, MOD, PATH, and lastly WIM. 
-
-This is bc I do not know how to add blank folders to github..
