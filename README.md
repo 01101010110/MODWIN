@@ -10,18 +10,4 @@ and turned the process into a simple one click script to build a "tiny" or "lite
 
 Windows 10 and 11 Compatible. UUPDUMP images Supported~!
 
-This tool now makes ISO Inspection Easier! Manual Iso Inspection, Modification, and Building Works on ALL Versions of Windows
-
-Did you download a sketchy Windows ISO somewhere? Want to open it up and see what's going on?
-
-You can use the mount batch in the TOOLS folder to be able to easily mount the WIM from the ISO, to port the WIM's contents to the PATH folder of MODWIN (A one step process- run mountwim.bat)
-
-Then you could open the PATH folder in MODWIN and upload files from there to Virustotal or manually inspect them yourself~!
-
-Alternatively, you could use the tool to bake files into the image or edit the image's registry..
-
-Here's a video talking through the source code from start to finish with the script in action. Some of the new tools are at the end of the video.
-
-https://www.youtube.com/watch?v=lu2b5DnMeYU
-
 Please feel free to take these tools and make them into something better, its all open source, and yours now.
