@@ -37,10 +37,10 @@ if "%1" neq "" ( goto %1)
 cls
 echo 1111   1111  000000   111111     00  00  00  111111  00      00   
 echo 11 11 11 11 00    00  111  111   00  00  00    11    0000    00  Version:
-echo 11  111  11 00    00  111   111  00  00  00    11    00 00   00  3.0
+echo 11  111  11 00    00  111   111  00  00  00    11    00 00   00  3.1 
 echo 11   11  11 00    00  111   111  00  00  00    11    00  00  00  
-echo 11       11 00    00  111   111  00  00  00    11    00   00 00
-echo 11       11  000000   11111111   0000000000  111111  00    0000
+echo 11       11 00    00  111   111  00  00  00    11    00   00 00  Thanks Indospot!
+echo 11       11  000000   11111111   0000000000  111111  00    0000  
 echo ===============================================================
 echo Brought to you by Jenneh and Cats~!   
 echo ===================================                       
@@ -395,7 +395,7 @@ goto BUILDISO
 cls
 echo Building your ISO Now~!
 echo =======================
-C:\MODWIN\oscdimg.exe -m -oc -u2 -udfver102 -C:\MODWIN\ISO\efi\microsoft\boot\efisys_noprompt.bin C:\MODWIN\ISO C:\MODWIN\MOD\winmod.iso
+C:\MODWIN\oscdimg.exe -m -oc -u2 -udfver102 -bC:\MODWIN\ISO\efi\microsoft\boot\efisys_noprompt.bin C:\MODWIN\ISO C:\MODWIN\MOD\winmod.iso
 echo ===================================================
 echo All Done, Boss~! Check C:\MODWIN\MOD For Your ISO!
 echo ===================================================
