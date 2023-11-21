@@ -1,1 +1,0 @@
-dism.exe /Unmount-Image /MountDir:"C:\MODWIN\PATH" /discard

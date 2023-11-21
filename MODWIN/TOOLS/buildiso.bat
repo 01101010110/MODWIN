@@ -1,1 +1,0 @@
-C:\MODWIN\oscdimg.exe -m -oc -u2 -udfver102 -C:\MODWIN\ISO\efi\microsoft\boot\efisys_noprompt.bin C:\MODWIN\ISO C:\MODWIN\MOD\winmod.iso

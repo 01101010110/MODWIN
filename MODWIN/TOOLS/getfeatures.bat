@@ -1,1 +1,0 @@
-Dism /Image:C:\MODWIN\PATH /Get-Features && pause

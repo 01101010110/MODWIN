@@ -1,1 +1,0 @@
-dism /export-image /SourceImageFile:"C:\MODWIN\ISO\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"C:\MODWIN\ISO\sources\install.esd" /Compress:recovery /CheckIntegrity
