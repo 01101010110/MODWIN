@@ -39,6 +39,7 @@ This is the application menu. This menu allows you to remove applications manual
 ![App Package Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/7%20-%20APP%20PACKAGE%20MENU.png?raw=true)
 
 (OPTIONAL):
+
 If you add your apps to the APPS folder in MODWIN, it can detect them and install of them at once
 
 ![Install All Apps](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/8%20-%20INSTALL%20ALL%20APPS.png?raw=true)
@@ -83,11 +84,13 @@ Users can add their own files and folders to the user folder and it will everyth
 ![User Folder](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/17%20-%20USER%20FOLDER.png?raw=true)
 
 STEP 8 BUILD ISO:
+
 This menu allows the user to build a compressed ISO or an uncompressed version. It is also able to unmount and clean the mount point with option 2
 
 ![Build ISO](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/18%20-%20BUILD%20ISO.png?raw=true)
 
 COMPLETED ISO BUILD EXAMPLE:
+
 After setting a name for your iso, MODWIN will use Xorriso to build your iso and then open the folder containing your new iso
 
 ![Completed ISO](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/19%20-%20COMPLETED%20ISO.png?raw=true)
