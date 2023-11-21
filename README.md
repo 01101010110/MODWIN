@@ -33,6 +33,7 @@ Select option 3 to mount the wim
 
 STEP 7:
 Now that the WIM is mounted, you are able to edit the WIM’S applications, packages, features, and registry
+
 This is the application menu. This menu allows you to remove applications manually, remove all applications, or install your own applications
 
 ![App Package Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/7%20-%20APP%20PACKAGE%20MENU.png?raw=true)
