@@ -40,6 +40,9 @@ PACKAGE MANAGER MENU:
 
 ![Package Manager Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/10%20-%20PACKAGE%20MANAGER%20MENU.png?raw=true)
 
+LIST OF "SAFE" PACKAGES FOR REMOVAL (Cannot be copy / pasted, for reference only)
+https://github.com/01101010110/MODWIN/blob/main/%22SAFE%22%20PACKAGES
+
 EXAMPLE OF INDIVIDUAL PACKAGE REMOVAL:
 
 ![Remove Individual Packages](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/11%20-%20REMOVE%20INDIVIDUAL%20PACKAGES.png?raw=true)
@@ -77,6 +80,7 @@ COMPLETED ISO BUILD EXAMPLE: After setting a name for your iso, MODWIN will use 
 ![Completed ISO](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/19%20-%20COMPLETED%20ISO.png?raw=true)
 
 VIDEO OF ALL THE STEPS:
-[![MODWINV4](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](http://www.youtube.com/watch?v=iPEAdEH6n50 "Video Title")
+
+[![MODWINV4](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](http://www.youtube.com/watch?v=iPEAdEH6n50 "MODWINV4")
 
 
