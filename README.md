@@ -73,6 +73,7 @@ WIM REGISTRY MENU:
 
 LOADED REGISTRY HIVE EXAMPLE:
 MODWIN is now able to open regedit for the user and prompts them to go to local machine / offline to see the loaded hive
+
 ![Loaded Hive](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/16%20-%20LOADED%20HIVE.png?raw=true)
 
 USER FOLDER:
