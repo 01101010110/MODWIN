@@ -6,6 +6,7 @@ Open your Windows ISO and copy all the files
 
 STEP 2:
 Open MODWIN. MODWIN will automatically create the Folders and Files it needs, if need be
+
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/2%20-%20OPEN%20MODWIN.png?raw=true)
 
 STEP 3:
@@ -17,6 +18,7 @@ CLOSE THE FOLDER AND SELECT OPTION 1 ON THE MAIN MENU
 ![Main Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/4%20-%20MAIN%20MENU.png?raw=true)
 
 STEP 5:
+
 MODWIN will automatically detect if the unpacked ISO contains a WIM or ESD and present you with a list of options to choose from. You can select any option by typing the correct number and MODWIN will extract the WIM.
 ![WIM Extract](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/5-%20WIM%20EXTRACT.png?raw=true)
 
