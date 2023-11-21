@@ -77,5 +77,6 @@ COMPLETED ISO BUILD EXAMPLE: After setting a name for your iso, MODWIN will use 
 ![Completed ISO](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/19%20-%20COMPLETED%20ISO.png?raw=true)
 
 VIDEO OF ALL THE STEPS:
-https://www.youtube.com/watch?v=iPEAdEH6n50
+[![MODWINV4](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](http://www.youtube.com/watch?v=iPEAdEH6n50 "Video Title")
+
 
