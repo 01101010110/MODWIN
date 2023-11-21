@@ -33,3 +33,9 @@ An update is pending, please wait for the v4 release. Instructions will be added
 
 ![Loaded Hive](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/16%20-%20LOADED%20HIVE.png?raw=true)
 
+![User Folder](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/17%20-%20USER%20FOLDER.png?raw=true)
+
+![Build ISO](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/18%20-%20BUILD%20ISO.png?raw=true)
+
+![Completed ISO](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/19%20-%20COMPLETED%20ISO.png?raw=true)
+
