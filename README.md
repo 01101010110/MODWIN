@@ -16,7 +16,7 @@ MODWIN will instantly open the newly created ISO directory so you can paste your
 ![Paste Files](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/3%20-%20PASTE%20FILES.png?raw=true)
 
 STEP 4:
-CLOSE THE FOLDER AND SELECT OPTION 1 ON THE MAIN MENU
+Close the ISO folder and select Option 1 on MODWIN's Main Menu
 
 ![Main Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/4%20-%20MAIN%20MENU.png?raw=true)
 
