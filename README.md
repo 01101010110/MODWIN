@@ -1,5 +1,11 @@
 Windows ARM isos not able to be Built in v4 yet, use v3 to build the iso if you need this functionality. An update is being worked on to fix this and add a few more options.
 
+VIDEO OF ALL THE STEPS:
+
+[![MODWINV4](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](http://www.youtube.com/watch?v=iPEAdEH6n50 "MODWINV4")
+
+WRITTEN GUIDE:
+
 STEP 1: Open your Windows ISO and copy all the files.
 
 ![Copy ISO Files](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/1%20-%20COPY%20ISO%20FILES.png?raw=true)
@@ -80,9 +86,3 @@ STEP 8 BUILD ISO: This menu allows the user to build a compressed ISO or an unco
 COMPLETED ISO BUILD EXAMPLE: After setting a name for your iso, MODWIN will use Xorriso to build your iso and then open the folder containing your new iso.
 
 ![Completed ISO](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/19%20-%20COMPLETED%20ISO.png?raw=true)
-
-VIDEO OF ALL THE STEPS:
-
-[![MODWINV4](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](http://www.youtube.com/watch?v=iPEAdEH6n50 "MODWINV4")
-
-
