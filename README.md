@@ -1,3 +1,5 @@
+Windows ARM isos not able to be Built in v4 yet, use v3 to build the iso if you need this functionality. An update is being worked on to fix this and add a few more options.
+
 STEP 1: Open your Windows ISO and copy all the files.
 
 ![Copy ISO Files](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/1%20-%20COPY%20ISO%20FILES.png?raw=true)
@@ -67,7 +69,7 @@ LOADED REGISTRY HIVE EXAMPLE: MODWIN is now able to open regedit for the user an
 
 ![Loaded Hive](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/16%20-%20LOADED%20HIVE.png?raw=true)
 
-USER FOLDER: Users can add their own files and folders to the user folder and it will everything onto the wim when ran.
+USER FOLDER: Users can add their own files and folders to the user folder and it will install everything onto the wim when ran.
 
 ![User Folder](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/17%20-%20USER%20FOLDER.png?raw=true)
 
