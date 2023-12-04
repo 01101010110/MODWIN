@@ -1,5 +1,3 @@
-Windows ARM isos not able to be Built in v4 yet, use v3 to build the iso if you need this functionality. An update is being worked on to fix this and add a few more options.
-
 VIDEO OF ALL THE STEPS:
 
 [![MODWINV4](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](http://www.youtube.com/watch?v=iPEAdEH6n50 "MODWINV4")
