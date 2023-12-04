@@ -19,3 +19,6 @@ Microsoft-Windows-WMIC
 Microsoft-Windows-Wallpaper
 Microsoft-Windows-WordPad
 OpenSSH-Client-Package
+
+Note that you can remove Windows Defender, although I am not advocating for that nor including it in any of my scripts, you can still disable this package and have your iso boot and function.
+Note you may remove notepad as well but must have an alternative if removing wordpad too. Notepad is left in the remove all packages script for user qol
