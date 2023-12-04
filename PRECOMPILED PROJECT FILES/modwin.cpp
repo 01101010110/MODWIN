@@ -36,11 +36,13 @@ void AddApp();
 void RemoveApp();
 void RemoveAllApps();
 void Packages();
-void AddPackage();
 void RemovePackage();
+void RemoveAllPackages();
+void AddPackage();
 void Features();
-void EnableFeature();
 void RemoveFeature();
+void RemoveAllFeatures();
+void EnableFeature();
 void MountWIMRegistry();
 void OpenRegistryHive(const std::string& hiveName);
 void UnloadRegistryHive();
@@ -60,7 +62,7 @@ int main() {
         std::cout << "Administrative privileges required.\n";
         SHELLEXECUTEINFO sei = { sizeof(sei) };
         sei.lpVerb = "runas";
-        sei.lpFile = "MODWIN.exe"; 
+        sei.lpFile =                                 "MODWIN.exe"; 
         sei.hwnd = NULL;
         sei.nShow = SW_NORMAL;
         if (!ShellExecuteEx(&sei)) {
@@ -174,7 +176,7 @@ void ShowMenu() {
 ||  11   11  11 00    00  111   111  00  00  00    11     00  00  00   ||
 ||  11       11 00    00  111   111  00  00  00    11     00   00 00   ||
 ||  11       11  000000   11111111   0000000000  111111   00    0000   ||
-||                                                                  V4 ||
+||                                                                  V5 ||
 =========================================================================                      
 Main Menu Options: 
 ==================
@@ -509,10 +511,11 @@ void Packages() {
     std::cout << "Package Manager Menu\n"; // Prints message to screen
     std::cout << "====================\n"; // Prints message to screen
     std::cout << "\n1. Remove installed packages\n"; // Prints message to screen
-    std::cout << "2. Install custom packages\n"; // Prints message to screen
-    std::cout << "3. Return to Main Menu\n"; // Prints message to screen
+    std::cout << "2. Remove all packages\n"; // Prints message to screen
+    std::cout << "3. Install custom packages\n"; // Prints message to screen
+    std::cout << "4. Return to Main Menu\n"; // Prints message to screen
     int choice; // Variable to store the user's menu selection
-    int validChoices[] = { 1, 2, 3 }; // Allowed choices
+    int validChoices[] = { 1, 2, 3, 4 }; // Allowed choices
     int numberOfChoices = sizeof(validChoices) / sizeof(validChoices[0]); // Number of valid choices
     while (true) { // Use a while loop to continuously prompt for input until a valid choice is made
         std::cout << "\nType a number above and press enter: "; // Prints message to screen
@@ -541,9 +544,12 @@ void Packages() {
         RemovePackage();
         break;
     case 2:
-        AddPackage();
+        RemoveAllPackages();
         break;
     case 3:
+        AddPackage();
+        break;
+    case 4:
         system("cls"); // Clear the console screen
         ShowMenu(); // Return to the main menu
         break;
@@ -587,6 +593,91 @@ void RemovePackage() {
     system("del C:\\MODWIN\\packages.txt"); // Removes leftover packages text file
     Packages(); // Takes user back to the Packages Menu
 }
+
+// Function to remove all "safe" packages listed in newpackages.txt
+void RemoveAllPackages() {
+    system("cls"); // Clear the console screen
+    system("dism /Image:C:\\MODWIN\\PATH /Get-Packages > C:\\MODWIN\\packages.txt");
+    system("find \"Package Identity : \" C:\\MODWIN\\packages.txt > C:\\MODWIN\\newpackages.txt");
+
+    std::ifstream inFile("C:\\MODWIN\\newpackages.txt");
+    std::ofstream safeFile("C:\\MODWIN\\safe.txt");
+    if (!inFile) {
+        std::cerr << "Failed to open C:\\MODWIN\\newpackages.txt\n";
+        Packages();
+        return;
+    }
+    if (!safeFile) {
+        std::cerr << "Failed to open or create C:\\MODWIN\\safe.txt\n";
+        Packages();
+        return;
+    }
+
+    std::vector<std::string> safePackagePrefixes = {
+        "Microsoft-OneCore-ApplicationModel",
+        "Microsoft-OneCore-DirectX",
+        "Microsoft-Windows-Hello",
+        "Microsoft-Windows-InternetExplorer",
+        "Microsoft-Windows-LanguageFeatures-Handwriting",
+        "Microsoft-Windows-LanguageFeatures-OCR",
+        "Microsoft-Windows-LanguageFeatures-Speech",
+        "Microsoft-Windows-LanguageFeatures-TextToSpeech",
+        "Microsoft-Windows-MSPaint",
+        "Microsoft-Windows-MediaPlayer",
+        "Microsoft-Windows-PowerShell",
+        "Microsoft-Windows-Printing",
+        "Microsoft-Windows-QuickAssist",
+        "Microsoft-Windows-StepsRecorder",
+        "Microsoft-Windows-TabletPCMath",
+        "Microsoft-Windows-WMIC",
+        "Microsoft-Windows-Wallpaper",
+        "Microsoft-Windows-WordPad",
+        "OpenSSH-Client-Package"
+    };
+
+    std::string line;
+    std::cout << "Identifying safe packages to remove...\n";
+
+    while (std::getline(inFile, line)) {
+        for (const auto& prefix : safePackagePrefixes) {
+            if (line.find(prefix) != std::string::npos) {
+                safeFile << line << '\n';
+                break;
+            }
+        }
+    }
+
+    inFile.close();
+    safeFile.close();
+
+    std::ifstream safePackagesFile("C:\\MODWIN\\safe.txt");
+    std::cout << "Removing safe packages...\n";
+    while (std::getline(safePackagesFile, line)) {
+        size_t startPos = line.find("Package Identity : ");
+        if (startPos != std::string::npos) {
+            std::string packageIdentity = line.substr(startPos + std::string("Package Identity : ").length());
+            std::string removeCommand = "dism /Image:C:\\MODWIN\\PATH /Remove-Package /PackageName:" + packageIdentity;
+            if (system(removeCommand.c_str()) != 0) {
+                std::cerr << "Failed to remove package: " << packageIdentity << '\n';
+            }
+            else {
+                std::cout << "Removed package: " << packageIdentity << '\n';
+            }
+        }
+    }
+
+    safePackagesFile.close();
+    std::cout << "\nAll safe packages have been removed. Press any key to continue.\n";
+    system("pause>nul");
+    system("cls");
+
+    system("del C:\\MODWIN\\newpackages.txt");
+    system("del C:\\MODWIN\\packages.txt");
+    system("del C:\\MODWIN\\safe.txt");
+
+    Packages();
+}
+
 void AddPackage() {
     system("cls"); // Clear the console screen
     namespace fs = std::filesystem; // Alias for the filesystem namespace
@@ -630,7 +721,7 @@ void AddPackage() {
         return; // Exit the function
     }
 
-    std::cout << "Package(s) added. Press any key to continue.\n"; // Prints message to screen
+    std::cout << "\nPackage(s) added. Press any key to continue.\n"; // Prints message to screen
     system("pause>nul"); // Pause the program
     system("cls"); // Clear the console screen
     Packages(); // Takes the user back to the Package Menu
@@ -644,10 +735,11 @@ void AddPackage() {
         std::cout << "Feature Management Menu\n";
         std::cout << "=======================\n";
         std::cout << "\n1. Disable Features\n";
-        std::cout << "2. Enable Features\n";
-        std::cout << "3. Return to Main Menu\n";
+        std::cout << "2. Disable All Features\n";
+        std::cout << "3. Enable Features\n";
+        std::cout << "4. Return to Main Menu\n";
         int choice; // Variable to store the user's menu selection
-        int validChoices[] = { 1, 2, 3 }; // Allowed choices
+        int validChoices[] = { 1, 2, 3, 4 }; // Allowed choices
         int numberOfChoices = sizeof(validChoices) / sizeof(validChoices[0]); // Number of valid choices
         while (true) { // Use a while loop to continuously prompt for input until a valid choice is made
             std::cout << "\nType a number above and press enter: "; // Prints message to screen
@@ -676,9 +768,12 @@ void AddPackage() {
             RemoveFeature(); // Takes user to the RemoveFeature menu
             break;
         case 2:
-            EnableFeature(); // Takes user to the EnableFeature menu
+            RemoveAllFeatures(); // Takes user to the RemoveAllFeatures menu
             break;
         case 3:
+            EnableFeature(); // Takes user to the EnableFeature menu
+            break;
+        case 4:
             system("cls"); // Clear the console screen
             ShowMenu(); // Takes user back to Main Menu
             break;
@@ -687,71 +782,191 @@ void AddPackage() {
         }
     }
 
-    // Function that provides a menu to allow user to remove features
+// Function that provides a menu to allow user to remove features
     void RemoveFeature() {
         system("cls"); // Clear the console screen
-        // Gets the features list from the WIM using Dism and prints it to a text file
         system("Dism /Image:C:\\MODWIN\\PATH /Get-Features /Format:Table > C:\\MODWIN\\features.txt");
-        // Searches text file for ': Enabled' and prints those lines to a new text file
-        system("findstr \": Enabled\" C:\\MODWIN\\features.txt > C:\\MODWIN\\enabledFeatures.txt");
-        std::ifstream inFile("C:\\MODWIN\\enabledFeatures.txt"); // Open the enabledFeatures.txt file
-        if (!inFile) { // If file does not exist
-            std::cerr << "Failed to open C:\\MODWIN\\enabledFeatures.txt\n"; // Print to screen
-            Features(); // Returns user to Features Menu
-            return; // Ensure to exit the function after the call to Features()
-        }
-        std::string line; // Declare a string variable to store each line read from the file
-        std::cout << "List of Enabled Features:\n"; // Print a message to the screen indicating the start of the list of enabled features
-        while (std::getline(inFile, line)) { // Loop through each line of the inFile. std::getline reads a line from inFile and stores it in 'line' variable
-            std::cout << line << '\n'; // Print the current line to the console and move to a new line
-        }
-        inFile.close(); // Close the file
-        std::string featureName; // Ask user for the feature name to disable
-        std::cout << "\nEnter the feature name to disable: ";    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore characters in the input buffer up to the maximum stream size or until a newline character is encountered.
-    std::getline(std::cin, featureName); // Use getline to handle spaces in feature names
-    // Construct and execute the Dism command to disable the feature
-    std::string removeCommand = "Dism /Image:C:\\MODWIN\\PATH /Disable-Feature /FeatureName:" + featureName;
-    system(removeCommand.c_str()); // Executes the command
-    std::cout << "Feature disabled. Press any key to continue.\n"; // Prints to screen
-    system("pause>nul"); // Pauses
-    system("cls"); // Clear the console screen
-    std::remove("C:\\MODWIN\\features.txt"); // Removes the features text file
-    std::remove("C:\\MODWIN\\enabledFeatures.txt"); // Removes the enabledFeatures text file
-    Features(); // Returns user to Features menu
-}
+        system("findstr \"Enabled\" C:\\MODWIN\\features.txt > C:\\MODWIN\\enabledFeatures.txt");
 
-// Function to Enable Features on the WIM
-void EnableFeature() {
-    system("cls"); // Clear the console screen
-    // Dism command to get get featires and print them to features.txt
-    system("Dism /Image:C:\\MODWIN\\PATH /Get-Features /Format:Table > C:\\MODWIN\\features.txt");
-    // Finds lines with ' : Enabled' and prints them to disabledFeatures.txt
-    system("findstr /v \" : Enabled\" C:\\MODWIN\\features.txt > C:\\MODWIN\\disabledFeatures.txt");
-    std::ifstream inFile("C:\\MODWIN\\disabledFeatures.txt"); // Open the disabledFeatures.txt file
-    if (!inFile) { // If file is missing
-        std::cerr << "Failed to open C:\\MODWIN\\disabledFeatures.txt\n"; // Display error message
-        ShowMenu(); // Takes user back to the menu
+        std::ifstream inFile("C:\\MODWIN\\enabledFeatures.txt");
+        if (!inFile) {
+            std::cerr << "Failed to open C:\\MODWIN\\enabledFeatures.txt\n";
+            Features();
+            return;
+        }
+
+        std::string line;
+        std::cout << "=========================\n";
+        std::cout << "List of Enabled Features:\n";
+        std::cout << "=========================\n";
+        while (std::getline(inFile, line)) {
+            // Skip header lines
+            if (line.find("Version") != std::string::npos ||
+                line.find("Features listing for package") != std::string::npos) {
+                continue;
+            }
+
+            // Remove "| Enabled"
+            size_t enabledPos = line.find("| Enabled");
+            if (enabledPos != std::string::npos) {
+                line.erase(enabledPos, std::string("| Enabled").length());
+            }
+
+            // Trim leading and trailing spaces from the line
+            line.erase(0, line.find_first_not_of(" \t")); // Leading spaces
+            line.erase(line.find_last_not_of(" \t") + 1); // Trailing spaces
+
+            std::cout << line << '\n';
+        }
+
+        inFile.close();
+
+        std::string featureName;
+        std::cout << "\nEnter the feature name to disable: ";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore characters in the input buffer up to the maximum stream size or until a newline character is encountered.
+        std::getline(std::cin, featureName); // Use getline to handle spaces in feature names
+        // Construct and execute the Dism command to disable the feature
+        std::string removeCommand = "Dism /Image:C:\\MODWIN\\PATH /Disable-Feature /FeatureName:" + featureName;
+        system(removeCommand.c_str()); // Executes the command
+        std::cout << "Feature disabled. Press any key to continue.\n"; // Prints to screen
+        system("pause>nul"); // Pauses
+        system("cls"); // Clear the console screen
+        std::remove("C:\\MODWIN\\features.txt"); // Removes the features text file
+        std::remove("C:\\MODWIN\\enabledFeatures.txt"); // Removes the enabledFeatures text file
+        Features(); // Returns user to Features menu
     }
-    std::string line; // Declare a string variable to store each line read from the file
-    std::cout << "List of Disabled Features:\n"; // Print to screen
-    while (std::getline(inFile, line)) { // Loop through each line of the inFile. The function std::getline reads a line from inFile and stores it in the 'line' variable
-        std::cout << line << '\n'; // Print the current line to the console and then create a new line
+    // Function that provides a menu to allow user to remove all features
+    void RemoveAllFeatures() {
+        system("cls"); // Clear the console screen
+        // Run DISM command and output to a text file
+        system("Dism /Image:C:\\MODWIN\\PATH /Get-Features /Format:Table > C:\\MODWIN\\features.txt");
+        // Extract only the lines that contain "Enabled" to a new file
+        system("findstr /c:\"Enabled\" C:\\MODWIN\\features.txt > C:\\MODWIN\\enabledFeatures.txt");
+
+        std::ifstream inFile("C:\\MODWIN\\enabledFeatures.txt");
+        if (!inFile) {
+            std::cerr << "Failed to open C:\\MODWIN\\enabledFeatures.txt\n";
+            Features(); // Return to the features menu if the file can't be opened
+            return;
+        }
+
+        std::string line;
+        std::cout << "Disabling all enabled features...\n";
+
+        // Read each line from the file
+        while (std::getline(inFile, line)) {
+            // Skip header lines
+            if (line.find("Feature Name") != std::string::npos ||
+                line.find("State") != std::string::npos ||
+                line.find("----") != std::string::npos ||
+                line.find("Deployment Image Servicing and Management tool") != std::string::npos) {
+                continue; // Skip the current iteration
+            }
+
+            // Remove all occurrences of the vertical bar and "Enabled"
+            line.erase(std::remove(line.begin(), line.end(), '|'), line.end());
+            size_t enabledPos = line.find("Enabled");
+            if (enabledPos != std::string::npos) {
+                line.erase(enabledPos, std::string("Enabled").length());
+            }
+
+            // Trim leading and trailing whitespace
+            line.erase(0, line.find_first_not_of(" \t"));
+            line.erase(line.find_last_not_of(" \t") + 1);
+
+            if (!line.empty()) {
+                // Construct and execute the DISM command to disable the feature
+                std::string disableCommand = "Dism /Image:C:\\MODWIN\\PATH /Disable-Feature /FeatureName:" + line;
+                system(disableCommand.c_str());
+                std::cout << "Disabled feature: " << line << '\n';
+            }
+        }
+
+        inFile.close(); // Close the file stream
+
+        std::cout << "\nAll features have been disabled. Press any key to continue.\n";
+        system("pause>nul"); // Pause the console without displaying any message
+        system("cls"); // Clear the console screen after resuming
+
+        // Cleanup by deleting the temporary text files
+        std::remove("C:\\MODWIN\\features.txt");
+        std::remove("C:\\MODWIN\\enabledFeatures.txt");
+
+        Features(); // Return to the features menu
     }
-    inFile.close(); // Close the file
-    std::string featureName; // Ask user for the feature name to enable
-    std::cout << "\nEnter the feature name to enable: "; // Print to screen
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::getline(std::cin, featureName); // Use getline to handle spaces in feature names
-    // Construct and execute the command to enable the feature without enabling parent features automatically
-    std::string enableCommand = "Dism /Image:C:\\MODWIN\\PATH /Enable-Feature /FeatureName:" + featureName;
-    system(enableCommand.c_str()); // Executes command
-    std::cout << "Feature enabled. Press any key to continue.\n"; // Prints to screen
-    system("pause>nul"); // Pauses
-    system("cls"); // Clears the console screen
-    std::remove("C:\\MODWIN\\features.txt"); // Removes the features text file
-    std::remove("C:\\MODWIN\\disabledFeatures.txt"); // Removes the enabledFeatures text file
-    Features(); // Returns user to Features menu
-}
+
+
+    // Function to Enable Features on the WIM
+    void EnableFeature() {
+        system("cls"); // Clear the console screen
+        // Run DISM command and output to a text file
+        system("Dism /Image:C:\\MODWIN\\PATH /Get-Features /Format:Table > C:\\MODWIN\\features.txt");
+        // Extract only the lines that contain "Disabled" to a new file
+        system("findstr /c:\"Disabled\" C:\\MODWIN\\features.txt > C:\\MODWIN\\disabledFeatures.txt");
+
+        std::ifstream inFile("C:\\MODWIN\\disabledFeatures.txt");
+        if (!inFile) {
+            std::cerr << "Failed to open C:\\MODWIN\\disabledFeatures.txt\n";
+            ShowMenu(); // Return to the menu if the file can't be opened
+            return;
+        }
+
+        std::string line;
+        std::cout << "=============================\n";
+        std::cout << "     List of Disabled Features:\n";
+        std::cout << "===============================\n";
+
+        while (std::getline(inFile, line)) {
+            // Check for unwanted lines and phrases and skip them
+            if (line.find("Feature Name") != std::string::npos ||
+                line.find("State") != std::string::npos ||
+                line.find("----") != std::string::npos ||
+                line.find("Deployment Image Servicing and Management tool") != std::string::npos ||
+                line.find("with Payload Removed") != std::string::npos) {
+                continue; // Skip the current iteration
+            }
+
+            // Remove all occurrences of the vertical bar
+            line.erase(std::remove(line.begin(), line.end(), '|'), line.end());
+
+            // Remove the word "Disabled" from the line if present
+            size_t disabledPos = line.find("Disabled");
+            if (disabledPos != std::string::npos) {
+                line.replace(disabledPos, std::string("Disabled").length(), ""); // Replace with empty string
+            }
+
+            // Trim leading and trailing whitespace
+            line.erase(0, line.find_first_not_of(" \t"));
+            line.erase(line.find_last_not_of(" \t") + 1);
+
+            if (!line.empty()) {
+                std::cout << line << '\n'; // Print the line if it's not empty
+            }
+        }
+
+        inFile.close(); // Close the file stream
+
+        std::string featureName;
+        std::cout << "\nEnter the feature name to enable: ";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+        std::getline(std::cin, featureName); // Get the user input for the feature name
+
+        // Construct and execute the DISM command to enable the feature
+        std::string enableCommand = "Dism /Image:C:\\MODWIN\\PATH /Enable-Feature /FeatureName:" + featureName;
+        system(enableCommand.c_str()); // Execute the command
+
+        std::cout << "Feature enabled. Press any key to continue.\n";
+        system("pause>nul"); // Pause the console without displaying any message
+        system("cls"); // Clear the console screen after resuming
+
+        // Cleanup by deleting the temporary text files
+        std::remove("C:\\MODWIN\\features.txt");
+        std::remove("C:\\MODWIN\\disabledFeatures.txt");
+
+        Features(); // Return to the features menu
+    }
+
+
 
 // Function for the WIM Registry Hive Menu
 void MountWIMRegistry() {
@@ -927,47 +1142,42 @@ void SaveChanges() {
     BuildISO(); // Takes user to the build iso menu
 }
 
-//Function to build a bootable Windows ISO 
+// Function to build a bootable Windows ISO
 void BuildISO() {
     system("cls"); // Clear the console screen
-    std::cout << "==============\n"; // Print to screen
-    std::cout << "ISO Build Menu\n";  // Print to screen
-    std::cout << "==============\n"; // Print to screen
+    std::cout << "==============\nISO Build Menu\n==============\n";
 
     // Prompt the user for the ISO file name
     std::cout << "\nEnter a name for your ISO file (without the .iso extension): ";
     std::string isoFileName;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
-    std::getline(std::cin, isoFileName); // Read the full line of input
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, isoFileName);
 
-    // Construct the full path for the ISO file
     std::string isoFilePath = "C:\\MODWIN\\MOD\\" + isoFileName + ".iso";
 
     // Build the xorriso command
     std::string xorrisoCommand = R"(C:\MODWIN\BIN\xorriso\xorriso )";
     xorrisoCommand += "-as mkisofs ";
-    xorrisoCommand += "-iso-level 4 ";
+    xorrisoCommand += "-iso-level 3 "; // Using ISO Level 3 for large file support
     xorrisoCommand += "-R ";
     xorrisoCommand += "-D ";
     xorrisoCommand += "-b efi/microsoft/boot/efisys_noprompt.bin ";
     xorrisoCommand += "-e efi/microsoft/boot/efisys_noprompt.bin ";
+    xorrisoCommand += "-no-emul-boot ";
+    xorrisoCommand += "-boot-load-size 4 ";
     xorrisoCommand += "-o " + isoFilePath + " ";
+    xorrisoCommand += "/cygdrive/c/MODWIN/ISO"; // Adjusted path for Cygwin
 
-    // If running under Cygwin or similar, modify the path format
-    std::string isoSourcePath = "/cygdrive/c/MODWIN/ISO";  // Adjusted path for Cygwin
-    xorrisoCommand += isoSourcePath; // Use the adjusted source directory path
-
-    system(xorrisoCommand.c_str()); // Execute the xorriso command
-    std::cout << "============================================\n"; // Print to screen
-    std::cout << "Check " << isoFilePath << " to find your ISO\n"; // Print to screen
-    std::cout << "============================================\n"; // Print to screen
-    // Open File Explorer at the specified directory
-    std::string openExplorerCommand = "explorer C:\\MODWIN\\MOD";
-    system(openExplorerCommand.c_str());
-    system("pause"); // Wait for user to return and press any key
-    system("cls"); // Clear the console screen
+    system(xorrisoCommand.c_str());
+    std::cout << "============================================\n";
+    std::cout << "Check " << isoFilePath << " to find your ISO\n";
+    std::cout << "============================================\n";
+    system("explorer C:\\MODWIN\\MOD");
+    system("pause");
+    system("cls");
     ShowMenu(); // Return to the main menu
 }
+
 
 
 // Function to unmount the WIM, discard changes, and clean-up the mount path
@@ -1001,12 +1211,13 @@ void Credits() {
     std::cout << "============================\n"; // Print message to screen
     std::cout << "Credits and Acknowledgements\n";  // Print message to screen
     std::cout << "============================\n"; // Print message to screen
-    std::cout << "\nThis project wouldn't be possible without the help from our XDA community:\n"; // Print message to screen
-    std::cout << "\n- Thanks to Persona78 we learned how to build the iso in Oscdimg.exe originally  \n"; // Print message to screen
-    std::cout << "- Thanks to james28909, P414DIN, knigge111, Indospot, Xazac, and Ro Kappa, \n"; // Print message to screen
-    std::cout << "- a lot of bugs were worked out and features added to MODWIN\n"; // Print message to screen
-    std::cout << "\nYour contributions have been essential to the success of this project.\n"; // Print message to screen
-    std::cout << "Thank you all!\n"; // Print message to screen
+    std::cout << "\nThis project wouldn't be possible without the help and support from our XDA community:\n"; // Print message to screen
+    std::cout << "\nThe first thanks goes to Persona78, we learned how to build the iso in Oscdimg.exe originally  \n"; // Print message to screen
+    std::cout << "\nThanks also goes to james28909, P414DIN, knigge111, Indospot, Xazac, elong7681 and Ro Kappa\n"; // Print message to screen
+    std::cout << "a lot of bugs were worked out and features added to MODWIN thanks to their input \n"; // Print message to screen
+    std::cout << "\nThanks to PeyTy for xorriso, an open source alternative to oscdimg\n"; // Print message to screen
+    std::cout << "https://github.com/PeyTy/xorriso-exe-for-windows\n"; // Print message to screen
+    std::cout << "\nDeveloped by Jenneh\n";
     std::cout << "\nPress any key to return to the main menu...\n"; // Print message to screen
     system("pause>nul"); // Pauses so the user has time to read the credits 
     system("cls"); // Clear the console screen
