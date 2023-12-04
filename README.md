@@ -45,8 +45,7 @@ EXAMPLE OF INDIVIDUAL APP REMOVAL:
 ![Remove Individual Apps](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/9%20-%20REMOVE%20INDIVIDUAL%20APPS.png?raw=true)
 
 PACKAGE MANAGER MENU:
-
-![Package Manager Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/10%20-%20PACKAGE%20MANAGER%20MENU.png?raw=true)
+![Package Manager Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/10.1%20-%20PACKAGE%20MANAGER%20MENU.png?raw=true)
 
 LIST OF "SAFE" PACKAGES FOR REMOVAL (Cannot be copy / pasted, for reference only)
 https://github.com/01101010110/MODWIN/blob/main/%22SAFE%22%20PACKAGES
