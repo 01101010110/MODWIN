@@ -18,7 +18,7 @@ STEP 3: MODWIN will instantly open the newly created ISO directory so you can pa
 
 STEP 4: Close the ISO folder and select Option 1 on MODWIN's Main Menu.
 
-![Main Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/4%20-%20MAIN%20MENU.png?raw=true)
+![Main Menu](https://github.com/01101010110/MODWIN/blob/main/PICTURE_INSTRUCTIONS/4-MAINMENU.png?raw=true)
 
 STEP 5: MODWIN will automatically detect if the unpacked ISO contains a WIM or ESD and present you with a list of options to choose from. You can select any option by typing the correct number and MODWIN will extract the WIM.
 
