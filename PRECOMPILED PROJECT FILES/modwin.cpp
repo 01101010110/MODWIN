@@ -828,7 +828,7 @@ void AddPackage() {
         // Construct and execute the Dism command to disable the feature
         std::string removeCommand = "Dism /Image:C:\\MODWIN\\PATH /Disable-Feature /FeatureName:" + featureName;
         system(removeCommand.c_str()); // Executes the command
-        std::cout << "Feature disabled. Press any key to continue.\n"; // Prints to screen
+        std::cout << "\nFeature disabled. Press any key to continue.\n"; // Prints to screen
         system("pause>nul"); // Pauses
         system("cls"); // Clear the console screen
         std::remove("C:\\MODWIN\\features.txt"); // Removes the features text file
@@ -912,9 +912,9 @@ void AddPackage() {
         }
 
         std::string line;
-        std::cout << "=============================\n";
-        std::cout << "     List of Disabled Features:\n";
-        std::cout << "===============================\n";
+        std::cout << "==========================\n";
+        std::cout << "List of Disabled Features:\n";
+        std::cout << "==========================\n";
 
         while (std::getline(inFile, line)) {
             // Check for unwanted lines and phrases and skip them
@@ -955,7 +955,7 @@ void AddPackage() {
         std::string enableCommand = "Dism /Image:C:\\MODWIN\\PATH /Enable-Feature /FeatureName:" + featureName;
         system(enableCommand.c_str()); // Execute the command
 
-        std::cout << "Feature enabled. Press any key to continue.\n";
+        std::cout << "\nFeature enabled. Press any key to continue.\n";
         system("pause>nul"); // Pause the console without displaying any message
         system("cls"); // Clear the console screen after resuming
 
