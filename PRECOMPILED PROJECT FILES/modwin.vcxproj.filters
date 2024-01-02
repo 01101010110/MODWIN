@@ -41,5 +41,11 @@
     <ClInclude Include="BIN\xorriso\xorriso_exe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="autounattend_xml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TPM_fix_cmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

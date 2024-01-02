@@ -135,6 +135,7 @@
     <ClCompile Include="modwin.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="autounattend_xml.h" />
     <ClInclude Include="BIN\xorriso\cygiconv_2_dll.h" />
     <ClInclude Include="BIN\xorriso\cygwin1_dll.h" />
     <ClInclude Include="BIN\xorriso\gitignore.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="BIN\xorriso\README_md.h" />
     <ClInclude Include="BIN\xorriso\resources_rc.h" />
     <ClInclude Include="BIN\xorriso\xorriso_exe.h" />
+    <ClInclude Include="TPM_fix_cmd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
