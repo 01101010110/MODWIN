@@ -67,8 +67,8 @@ int main() {
     if (!IsUserAdmin()) {
         std::cout << "Administrative privileges required.\n";
         SHELLEXECUTEINFO sei = { sizeof(sei) };
-        sei.lpVerb = L"runas";
-        sei.lpFile = L"MODWIN.exe";
+        sei.lpVerb = "runas";
+        sei.lpFile = "MODWIN.exe";
         sei.hwnd = NULL;
         sei.nShow = SW_NORMAL;
         if (!ShellExecuteEx(&sei)) {
@@ -1199,7 +1199,7 @@ void AddUnattendSupport() {
     std::cin >> choice;
 
     std::string windowsVersion;
-    std::string defaultWindowsVersion = "Windows 10 Home"; // Adjust as per your XML file's default content
+    std::string defaultWindowsVersion = "Windows 10 Home"; 
 
     switch (choice) {
     case 1: windowsVersion = "Windows 10 Home"; break;
