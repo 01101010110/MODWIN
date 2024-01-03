@@ -1156,29 +1156,37 @@ void BuildOptions() {
     }
 }
 
+// This function adds unattended support to an ISO, modifying certain files and handling user inputs.
 void AddUnattendSupport() {
-    system("cls");
+    system("cls"); // Clear the console screen
+
+    // Print the operation's header
     std::cout << "==================================\n";
     std::cout << "Adding Unattend Support to the ISO\n";
     std::cout << "==================================\n";
 
+    // Define the source and target directories for file operations
     fs::path sourceDir = "C:\\MODWIN\\BIN";
     fs::path targetDir = "C:\\MODWIN\\ISO";
 
+    // List of files to copy from source to target directory
     std::vector<std::string> filesToCopy = {
         "TPM_fix.cmd",
         "autounattend.xml"
     };
 
+    // Iterate through each file in the list to copy it
     for (const auto& fileName : filesToCopy) {
         fs::path sourceFile = sourceDir / fileName;
         fs::path targetFile = targetDir / fileName;
 
+        // Check if the source file exists before attempting to copy
         if (!fs::exists(sourceFile)) {
             std::cerr << "Error: " << sourceFile.string() << " does not exist and cannot be copied." << std::endl;
             continue;
         }
 
+        // Try to copy the file and catch any errors that occur
         try {
             fs::copy(sourceFile, targetFile, fs::copy_options::overwrite_existing);
         }
@@ -1187,8 +1195,7 @@ void AddUnattendSupport() {
         }
     }
 
-    std::string xmlFilePath = (targetDir / "autounattend.xml").string();
-
+    // Prompt the user to select a version of Windows
     std::cout << "\nSelect the version of Windows:\n"
         << "1. Windows 10 Home\n"
         << "2. Windows 10 Pro\n"
@@ -1198,17 +1205,20 @@ void AddUnattendSupport() {
     int choice;
     std::cin >> choice;
 
+    // Variable to hold the selected version of Windows
     std::string windowsVersion;
-    std::string defaultWindowsVersion = "Windows 10 Home"; 
 
+    // Switch statement to handle each version selection
     switch (choice) {
-    case 1: windowsVersion = "Windows 10 Home"; break;
+    case 1:
+        windowsVersion = "Windows 10 Home"; break;
     case 2: windowsVersion = "Windows 10 Pro"; break;
     case 3: windowsVersion = "Windows 11 Home"; break;
     case 4: windowsVersion = "Windows 11 Pro"; break;
     default: std::cerr << "Invalid choice. Exiting."; return;
     }
 
+    // Prompt user for additional information
     std::cout << "\nPlease enter your desired username for registration: ";
     std::string userName;
     std::cin.ignore();
@@ -1218,45 +1228,46 @@ void AddUnattendSupport() {
     std::string password;
     std::getline(std::cin, password);
 
-    std::cout << "\nPlease enter your organization name (only for pro, leave blank otherwise): ";
-    std::string organizationName;
-    std::getline(std::cin, organizationName);
+    // Define the full path to the XML file to modify
+    std::string xmlFilePath = (targetDir / "autounattend.xml").string();
 
+    // Attempt to open the XML file for modification
     std::ifstream fileIn(xmlFilePath);
     if (!fileIn.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
         return;
     }
+
+    // Read the entire contents of the file into a string
     std::stringstream buffer;
     buffer << fileIn.rdbuf();
     std::string xmlContent = buffer.str();
     fileIn.close();
 
-    // Replace all instances of placeholder user name, password, and organization with user input
+    // Define the placeholders in the XML file
     std::string placeholderUserName = "user name";
     std::string placeholderPassword = "password";
-    std::string placeholderOrganization = "Organization Name";
+    std::string defaultWindowsVersion = "Windows 10 Home";
 
+    // Replace the placeholder user name with the provided user name
     size_t pos;
     while ((pos = xmlContent.find(placeholderUserName)) != std::string::npos) {
         xmlContent.replace(pos, placeholderUserName.length(), userName);
     }
 
+    // Replace the placeholder password with the provided password
     while ((pos = xmlContent.find(placeholderPassword)) != std::string::npos) {
         xmlContent.replace(pos, placeholderPassword.length(), password);
     }
 
-    if (!organizationName.empty()) {
-        while ((pos = xmlContent.find(placeholderOrganization)) != std::string::npos) {
-            xmlContent.replace(pos, placeholderOrganization.length(), organizationName);
+    // Replace the default Windows version with the selected version only if it's not the default
+    if (windowsVersion != defaultWindowsVersion) {
+        while ((pos = xmlContent.find(defaultWindowsVersion)) != std::string::npos) {
+            xmlContent.replace(pos, defaultWindowsVersion.length(), windowsVersion);
         }
     }
 
-    // Replace the default Windows version with the user's selected version
-    while ((pos = xmlContent.find(defaultWindowsVersion)) != std::string::npos) {
-        xmlContent.replace(pos, defaultWindowsVersion.length(), windowsVersion);
-    }
-
+    // Attempt to write the modified content back to the XML file
     std::ofstream fileOut(xmlFilePath);
     if (!fileOut.is_open()) {
         std::cerr << "Error opening file for writing!" << std::endl;
@@ -1265,10 +1276,13 @@ void AddUnattendSupport() {
     fileOut << xmlContent;
     fileOut.close();
 
+    // Notify the user that the operation is complete
     std::cout << "\nUnattend support files have been added to the ISO directory.\n";
     system("pause"); // Wait for user to press any key
+
+    // Clear the console screen and show the main menu
     system("cls");
-    ShowMenu();
+    ShowMenu(); 
 }
 
 // Function to Unmount the WIM while saving all changes made to the WIM
@@ -1322,8 +1336,6 @@ void BuildISO() {
     system("cls");
     ShowMenu(); // Return to the main menu
 }
-
-
 
 // Function to unmount the WIM, discard changes, and clean-up the mount path
 void DiscardChanges() {
