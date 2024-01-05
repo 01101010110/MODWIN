@@ -1374,6 +1374,10 @@ void Credits() {
     std::cout << "a lot of bugs were worked out and features added to MODWIN thanks to their input \n"; // Print message to screen
     std::cout << "\nThanks to PeyTy for xorriso, an open source alternative to oscdimg\n"; // Print message to screen
     std::cout << "https://github.com/PeyTy/xorriso-exe-for-windows\n"; // Print message to screen
+    std::cout << "\nThanks to Asheroto for their gist code teaching us how to add the tpm bypass to the unattend file\n"; // Print message to screen
+    std::cout << "https://gist.github.com/asheroto/c4a9fb4e5e5bdad10bcb831e3a3daee6\n"; // Print message to screen
+    std::cout << "\nThanks to WindowsAFG.com, we learned a lot about answer file generation\n";
+    std::cout << "https://www.windowsafg.com/\n";
     std::cout << "\nDeveloped by Jenneh\n";
     std::cout << "\nPress any key to return to the main menu...\n"; // Print message to screen
     system("pause>nul"); // Pauses so the user has time to read the credits 
