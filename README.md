@@ -95,4 +95,8 @@ COMPLETED ISO BUILD EXAMPLE: After setting a name for your iso, MODWIN will use 
 
 ## Videos
 [![MODWINV4](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](http://www.youtube.com/watch?v=iPEAdEH6n50 "MODWINV4")
+It says v4, but it shows all of the features included in v6, minus the auto-unnattended support, which is shown in the video below.
+
+[![MODWINV6](http://img.youtube.com/vi/iPEAdEH6n50/0.jpg)](https://www.youtube.com/watch?v=wgRW3NEegRU "MODWINV6")
+This video shows how to use the auto unnattended feature 
 
