@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="MODWIN.vcxproj" Id="9d1a03b9-5b3f-4d9b-8e8c-fd9d9905e7bb" />
+</Solution>
