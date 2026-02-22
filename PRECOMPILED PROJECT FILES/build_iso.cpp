@@ -49,12 +49,12 @@ const char* INTERNAL_AUTOUNATTEND = R"(<?xml version="1.0" encoding="utf-8"?>
             <UserLocale>en-US</UserLocale>
         </component>
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            %DISK_CONFIGURATION_BLOCK%
-            %RUN_SYNC_PE%
             <UpgradeData>
                 <Upgrade>false</Upgrade>
                 <WillShowUI>Never</WillShowUI>
             </UpgradeData>
+            %DISK_CONFIGURATION_BLOCK%
+            %RUN_SYNC_PE%
             <UserData>
                 <AcceptEula>true</AcceptEula>
             </UserData>
@@ -236,6 +236,8 @@ void Task_BuildISO() {
             myLog.AddLog("[INFO] Generating autounattend.xml...\n");
             xmlContent = std::string(INTERNAL_AUTOUNATTEND);
 
+            fs::create_directories(isoSourceDir + "\\sources");
+
             std::ofstream eiFile(isoSourceDir + "\\sources\\ei.cfg");
             if (eiFile.is_open()) {
                 eiFile << "[EditionID]\n\n[Channel]\nRetail\n[VL]\n0";
@@ -346,7 +348,7 @@ void Task_BuildISO() {
                 peCommands.insert(peCommands.end(), tpmCmds.begin(), tpmCmds.end());
             }
 
-            specCommands.push_back("reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE /v BypassNRO /t REG_DWORD /d 1 /f");
+            specCommands.push_back("cmd.exe /c reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE /v BypassNRO /t REG_DWORD /d 1 /f");
 
             ReplaceStringInPlace(xmlContent, "%RUN_SYNC_PE%", BuildRunSyncBlock(peCommands));
             ReplaceStringInPlace(xmlContent, "%RUN_SYNC_SPEC%", BuildRunSyncBlock(specCommands));
