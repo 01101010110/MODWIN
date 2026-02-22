@@ -10,7 +10,7 @@ A program to help users customize a Windows 10 or 11 iso.
 
 ![OPEN ISO](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/1.png?raw=true) 
 
-Take note of what drive Windows mounted the ISO to, for me it mounted to drive F
+Take note of what drive Windows mounted the ISO to, then close the ISO. (for me it mounted to drive F)
 
 ![NOTE DRIVE](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/2.png?raw=true)
 
@@ -56,3 +56,4 @@ After the stop operation command completes, you will see it's output in the cons
 
 ## Step 7
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/6.png?raw=true)
+
