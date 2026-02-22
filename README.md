@@ -4,6 +4,7 @@ THIS README IS A PLACEHOLDER, An update is pending, eta a few days
 A program to help users customize a Windows 10 or 11 iso.
 
 Click on the How to use MODWIN thumbnail below this sentence for video instructions, or continue reading below for written instructions.
+
 [![Click for Video](https://img.youtube.com/vi/P9A3MBgaSCM/hqdefault.jpg)](https://youtu.be/P9A3MBgaSCM)
 
 ## Step 1
@@ -57,6 +58,7 @@ After the stop operation command completes, you will see it's output in the cons
 
 ## Step 7
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/6.png?raw=true)
+
 
 
 
