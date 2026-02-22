@@ -3,8 +3,6 @@ THIS README IS A PLACEHOLDER, An update is pending, eta a few days
 
 A program to help users customize a Windows 10 or 11 iso.
 
-
-
 ## Step 1
  Double click on your Windows ISO to mount it.
 
@@ -56,4 +54,5 @@ After the stop operation command completes, you will see it's output in the cons
 
 ## Step 7
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/6.png?raw=true)
+
 
