@@ -91,7 +91,7 @@ A tool has been added to give your right click menu a "Take Ownership" command. 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/21.png?raw=true)
 
 ## Step 6
-Once you are done with your edits, you are now ready to build your ISO. There are some optional features you may select if you would like or need, such as the TPM bypass (for older machines / virtual machines - do mot install if you don't need), the skip pressing any key option (which saves you from having to frantically try to press a key when you first run the ISO), and the option to add an unattended file to the ISO that will automatically install Windows for you.
+Once you are done with your edits, you are now ready to build your ISO. There are some optional features you may select if you would like or need, such as the TPM bypass (for older machines / virtual machines - do not install if you don't need), the skip pressing any key option (which saves you from having to frantically try to press a key when you first run the ISO), and the option to add an unattended file to the ISO that will automatically install Windows for you.
 
 ### Build ISO Menu
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/22.png?raw=true)
@@ -122,6 +122,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
