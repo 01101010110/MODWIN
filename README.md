@@ -1,9 +1,9 @@
 THIS README IS A PLACEHOLDER, An update is pending, eta a few days (Working out the TPM bypass and possible ARM variant)
 # MODWIN
 
-A program to help users customize a Windows 10 or 11 iso in any way they want to. 
+### A program to help users customize a Windows 10 or 11 iso in any way they want to. 
 
-Click on the How to use MODWIN thumbnail below this sentence for video instructions, or continue reading below for written instructions.
+### Click on the How To Use MODWIN thumbnail below this sentence for video instructions, or continue reading below for written instructions.
 
 [![Click for Video](https://img.youtube.com/vi/P9A3MBgaSCM/hqdefault.jpg)](https://youtu.be/P9A3MBgaSCM)
 
@@ -85,7 +85,9 @@ A tool has been added to give your right click menu a "Take Ownership" command. 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/21.png?raw=true)
 
 ## Step 6
-Once you are done with your edits, you are now ready to build your ISO. 
+Once you are done with your edits, you are now ready to build your ISO. There are some optional features you may select if you would like or need, such as the TPM bypass (for older machines / virtual machines - do mot install if you don't need), the skip pressing any key option (which saves you from having to frantically try to press a key when you first run the ISO), and the option to add an unattended file to the ISO that will automatically install Windows for you.
+
+### Build ISO Menu
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/22.png?raw=true)
 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/23.png?raw=true)
@@ -107,6 +109,7 @@ OPTIONAL: If you ever need to stop an operation, the red button can handle that 
 
 After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
+
 
 
 
