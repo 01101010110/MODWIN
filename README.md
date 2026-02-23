@@ -99,12 +99,12 @@ Once you are done with your edits, you are now ready to build your ISO. There ar
 ## Step 7
 When you are done building your ISO, you should uninstall MODWIN. This way the next time you make an ISO, it doesn't get corrupted by leftover files from a previous ISO.
 
-### UNINSTALL
+### Uninstall
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/25.png?raw=true)
 
 ## Optional
 
-### STOP OPERATION
+### Stop Operation
 OPTIONAL: If you ever need to stop an operation, the red button can handle that for you. MODWIN may freeze temporarily as it halts DISM services.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/11.png?raw=true)
 
@@ -119,6 +119,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
