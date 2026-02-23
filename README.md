@@ -1,7 +1,7 @@
 THIS README IS A PLACEHOLDER, An update is pending, eta a few days
 # MODWIN
 
-A program to help users customize a Windows 10 or 11 iso.
+A program to help users customize a Windows 10 or 11 iso in any way they want to.  
 
 Click on the How to use MODWIN thumbnail below this sentence for video instructions, or continue reading below for written instructions.
 
@@ -55,6 +55,11 @@ After the stop operation command completes, you will see it's output in the cons
 
 ## Step 4
 
+Once the extraction is complete:
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/28.png?raw=true)
+
+You can then select option 2 to mount the WIM.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/13.png?raw=true)
 
 ## Step 5
 
@@ -63,6 +68,7 @@ After the stop operation command completes, you will see it's output in the cons
 
 ## Step 7
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/6.png?raw=true)
+
 
 
 
