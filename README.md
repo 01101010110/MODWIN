@@ -56,7 +56,9 @@ You can then select option 2 to mount the WIM.
 
 ## Step 5
 
-Once your WIM is mounted, you can access the apps, packages, and features installed on it. You may also remove any apps and packages you like, and enable / disable features. MODWIN also now has a built in database that will give you some information about what each item is and what it does. Please note removing any of these apps, packages, or features may have unintended consequences in the future, so be certain you need to remove them before you do. The items that are green and yellow, as of this current version of Windows, wihen removed the ISO will still boot. The consequences have not been tested, only the ability to boot and open a webpage.
+Once your WIM is mounted, you can access the apps, packages, and features installed on it. You may also remove any apps and packages you like, and enable / disable features. MODWIN also now has a built in database that will give you some information about what each item is and what it does. Right click on the item to get a reference link that will take you to either the microsoft store page for the item, or the Microsoft Learn Page for the iten. 
+
+Please note removing any of these apps, packages, or features may have unintended consequences in the future, so be certain you need to remove them before you do. The items that are green and yellow, as of this current version of Windows, wihen removed the ISO will still boot. The consequences have not been tested, only the ability to boot and open a webpage.
 
 ### App Manager 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/14.png?raw=true)
@@ -115,6 +117,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
