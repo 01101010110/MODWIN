@@ -57,13 +57,23 @@ You can then select option 2 to mount the WIM.
 
 ## Step 5
 
-Once your WIM is mounted, you can access the apps, packages, and features installed on it. You may also remove any apps and packages you like, and disable features. 
+Once your WIM is mounted, you can access the apps, packages, and features installed on it. You may also remove any apps and packages you like, and enable / disable features. MODWIN also now has a built in database that will give you some information about what each item is and what it does. Please note removing any of these apps, packages, or features may have unintended consequences in the future, so be certain you need to remove them before you do. The items that are green and yellow, as of this current version of Windows, wihen removed the ISO will still boot. The consequences have not been tested, only the ability to boot and open a webpage.
+
+### App Manager 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/14.png?raw=true)
 
-You are able to add your own apps (Microsoft Store apps you download from https://store.rg-adguard.net/) and packages (drivers / Updates from https://www.catalog.update.microsoft.com/Home.aspx).
+You are able to add your own apps (Microsoft Store apps you download from https://store.rg-adguard.net/)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/15.png?raw=true)
 
+### Package Manager
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/16.png?raw=true)
+
+You are able to add packages (drivers / Updates from https://www.catalog.update.microsoft.com/Home.aspx).
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/17.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/18.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/19.png?raw=true)
 
 ## Step 6
 
@@ -76,6 +86,7 @@ OPTIONAL: If you ever need to stop an operation, the red button can handle that 
 
 After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
+
 
 
 
