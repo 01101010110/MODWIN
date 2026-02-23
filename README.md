@@ -71,11 +71,32 @@ You are able to add your own apps (Microsoft Store apps you download from https:
 You are able to add packages (drivers / Updates from https://www.catalog.update.microsoft.com/Home.aspx).
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/17.png?raw=true)
 
+### Feature Manager
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/18.png?raw=true)
 
+### Registry Manager --- WARNING: Only edit items in the OFFLINE Folder. If you don't know what a registry is, don't even use this option :-)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/19.png?raw=true)
 
+### Add Custom Files
+You are able to add any files or folders to your iso, either by selecting them directly using the buttons, or by opening the path folder and dragging and dropping them where you like.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/20.png?raw=true)
+
+A tool has been added to give your right click menu a "Take Ownership" command. Running this will allow you to be able to delete anything you want from the ISO. Please note this could break your image if you delete the wrong items. Remember to press the remove button when you are done using it, as it will not work if you uninstall MODWIN.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/21.png?raw=true)
+
 ## Step 6
+Once you are done with your edits, you are now ready to build your ISO. 
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/22.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/23.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/24.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/25.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
 
 ## Step 7
 
@@ -86,6 +107,7 @@ OPTIONAL: If you ever need to stop an operation, the red button can handle that 
 
 After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
+
 
 
 
