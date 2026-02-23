@@ -1,6 +1,6 @@
 # MODWIN
 
-A program to help users customize a Windows 10 or 11 ISO in any way they want to. 
+A program to help users to customize a Windows 10 or 11 ISO in any way they want to. 
 
 Click on the How To Use MODWIN thumbnail below this sentence for video instructions, or continue reading below the thumbnail for written instructions.
 
@@ -119,6 +119,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
