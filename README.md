@@ -1,4 +1,4 @@
-THIS README IS A PLACEHOLDER, An update is pending, eta a few days
+THIS README IS A PLACEHOLDER, An update is pending, eta a few days (Working out the TPM bypass and possible ARM variant)
 # MODWIN
 
 A program to help users customize a Windows 10 or 11 iso in any way they want to. 
@@ -86,6 +86,7 @@ OPTIONAL: If you ever need to stop an operation, the red button can handle that 
 
 After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
+
 
 
 
