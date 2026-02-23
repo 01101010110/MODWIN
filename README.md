@@ -1,9 +1,9 @@
 THIS README IS A PLACEHOLDER, An update is pending, eta a few days (Working out the TPM bypass and possible ARM variant)
 # MODWIN
 
-### A program to help users customize a Windows 10 or 11 iso in any way they want to. 
+A program to help users customize a Windows 10 or 11 iso in any way they want to. 
 
-### Click on the How To Use MODWIN thumbnail below this sentence for video instructions, or continue reading below for written instructions.
+Click on the How To Use MODWIN thumbnail below this sentence for video instructions, or continue reading below the thumbnail for written instructions.
 
 [![Click for Video](https://img.youtube.com/vi/P9A3MBgaSCM/hqdefault.jpg)](https://youtu.be/P9A3MBgaSCM)
 
@@ -90,28 +90,32 @@ Once you are done with your edits, you are now ready to build your ISO. There ar
 ### Build ISO Menu
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/22.png?raw=true)
 
+### Unattended Options -- Warning: Will Wipe the disk of the Computer / VM it is installing to, then it will automatically install Windows.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/23.png?raw=true)
 
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/24.png?raw=true)
-
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/25.png?raw=true)
-
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
-
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
-
 ## Step 7
+When you are done building your ISO, you should uninstall MODWIN. This way the next time you make an ISO, it doesn't get corrupted by leftover files from a previous ISO.
+
+### UNINSTALL
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/25.png?raw=true)
 
 ## Optional
 
+### STOP OPERATION
 OPTIONAL: If you ever need to stop an operation, the red button can handle that for you. MODWIN may freeze temporarily as it halts DISM services.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/11.png?raw=true)
 
 After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
 
+### Unmount
+If you ever need to unmount your image, you can do that here. You are also able to save your changes if you like, else it will discard it.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/24.png?raw=true)
 
-
+## Credits
+This project would not have been possible without the help and support from all the lovely people below <3
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
 
 
 
