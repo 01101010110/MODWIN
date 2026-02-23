@@ -1,7 +1,7 @@
 THIS README IS A PLACEHOLDER, An update is pending, eta a few days
 # MODWIN
 
-A program to help users customize a Windows 10 or 11 iso in any way they want to.  
+A program to help users customize a Windows 10 or 11 iso in any way they want to. 
 
 Click on the How to use MODWIN thumbnail below this sentence for video instructions, or continue reading below for written instructions.
 
@@ -47,12 +47,6 @@ After selecting the version, you may extract the WIM. MODWIN will also copy the 
 MODWIN's action button will then turn to a "Working" text, and you can see the progress in the console at the bottom.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/10.png?raw=true)
 
-OPTIONAL: If you ever need to stop an operation, the red button can handle that for you. MODWIN may freeze temporarily as it halts DISM services.
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/11.png?raw=true)
-
-After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
-
 ## Step 4
 
 Once the extraction is complete:
@@ -63,12 +57,25 @@ You can then select option 2 to mount the WIM.
 
 ## Step 5
 
+Once your WIM is mounted, you can access the apps, packages, and features installed on it. You may also remove any apps and packages you like, and disable features. 
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/14.png?raw=true)
+
+You are able to add your own apps (Microsoft Store apps you download from https://store.rg-adguard.net/) and packages (drivers / Updates from https://www.catalog.update.microsoft.com/Home.aspx).
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/15.png?raw=true)
+
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/16.png?raw=true)
+
 ## Step 6
 
-
 ## Step 7
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/6.png?raw=true)
 
+## Optional
+
+OPTIONAL: If you ever need to stop an operation, the red button can handle that for you. MODWIN may freeze temporarily as it halts DISM services.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/11.png?raw=true)
+
+After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
 
 
 
