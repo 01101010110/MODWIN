@@ -81,7 +81,7 @@ You are able to add packages (drivers / Updates from https://www.catalog.update.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/19.png?raw=true)
 
 ### Add Custom Files
-You are able to add any files or folders to your iso, either by selecting them directly using the buttons, or by opening the path folder and dragging and dropping them where you like.
+You are able to add any files or folders to your ISO, either by selecting them directly using the buttons, or by opening the path folder and dragging and dropping them where you like.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/20.png?raw=true)
 
 A tool has been added to give your right click menu a "Take Ownership" command. Running this will allow you to be able to delete anything you want from the ISO. Please note this could break your image if you delete the wrong items. Remember to press the remove button when you are done using it, as it will not work if you uninstall MODWIN.
@@ -119,6 +119,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
