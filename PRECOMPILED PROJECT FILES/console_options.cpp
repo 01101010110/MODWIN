@@ -161,15 +161,18 @@ void AppLog::DrawContent() {
         if (ImGui::Button("YES, STOP IT", ImVec2(120, 0))) {
             stopRequested = true;
 
-            RunCommand("taskkill /F /IM dism.exe");
-            RunCommand("taskkill /F /IM mkisofs.exe");
-            RunCommand("taskkill /F /IM oscdimg.exe");
+            std::thread([]() {
+                myLog.AddLog("[ALERT] Stopping... Killing background processes.\n");
+                ExecuteSilent("taskkill /F /IM dism.exe", true, nullptr);
+                ExecuteSilent("taskkill /F /IM mkisofs.exe", true, nullptr);
 
-            AddLog("[ALERT] Stopping... Running mountpoint cleanup to unlock folders.\n");
-            ExecuteSilent("dism /Cleanup-Mountpoints", true, nullptr);
+                myLog.AddLog("[ALERT] Running mountpoint cleanup to unlock folders.\n");
+                ExecuteSilent("dism /Cleanup-Mountpoints", true, nullptr);
 
-            isTaskRunning = false;
-            AddLog("[SUCCESS] OPERATION ABORTED BY USER. Files should now be unlocked.\n");
+                isTaskRunning = false;
+                myLog.AddLog("[SUCCESS] OPERATION ABORTED BY USER. Files should now be unlocked.\n");
+                }).detach();
+
             ImGui::CloseCurrentPopup();
         }
         ImGui::SameLine();
