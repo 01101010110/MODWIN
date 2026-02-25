@@ -114,6 +114,8 @@ OPTIONAL: If you ever need to stop an operation, the red button can handle that 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/11.png?raw=true)
 
 After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/30.png?raw=true)
+
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/12.png?raw=true)
 
 ### Unmount
@@ -124,6 +126,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
