@@ -44,7 +44,7 @@ Select the drive you took note of before.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/333.png?raw=true)
 
 After selecting the drive, you may select the version of Windows you want to extract. (Typically Home or Pro)
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/8.png?raw=true)
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/112.png?raw=true)
 
 After selecting the version, you may extract the WIM. MODWIN will also copy the ISO files it needs to build the ISO later.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/9.png?raw=true)
@@ -128,6 +128,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
