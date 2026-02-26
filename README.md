@@ -37,7 +37,7 @@ Open MODWIN and select where you would like to install.
 
 ## Step 3
 After MODWIN installs, you may select the drive your ISO is mounted to, to extract the WIM.
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/6.png?raw=true)
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/66.png?raw=true)
 
 Select the drive you took note of before.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/7.png?raw=true)
@@ -127,6 +127,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
