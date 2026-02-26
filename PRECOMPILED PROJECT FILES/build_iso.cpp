@@ -24,19 +24,6 @@ char unattendPass[64] = "";
 char customFileSource[MAX_PATH] = "";
 bool isCustomSourceAFolder = false;
 
-// Batch script to bypass Windows 11 TPM and CPU checks via registry modifications.
-const char* INTERNAL_TPM_FIX = R"(
-@echo off
-reg add HKLM\SYSTEM\Setup\LabConfig /v BypassTPMCheck /t REG_DWORD /d 1 /f
-reg add HKLM\SYSTEM\Setup\LabConfig /v BypassSecureBootCheck /t REG_DWORD /d 1 /f
-reg add HKLM\SYSTEM\Setup\LabConfig /v BypassRAMCheck /t REG_DWORD /d 1 /f
-reg add HKLM\SYSTEM\Setup\LabConfig /v BypassStorageCheck /t REG_DWORD /d 1 /f
-reg add HKLM\SYSTEM\Setup\LabConfig /v BypassCPUCheck /t REG_DWORD /d 1 /f
-reg add HKLM\SYSTEM\Setup\MoSetup /v AllowUpgradesWithUnsupportedTPMOrCPU /t REG_DWORD /d 1 /f
-echo hardware bypass applied.
-exit /b 0
-)";
-
 // Base XML template 
 const char* INTERNAL_AUTOUNATTEND = R"(<?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend">
@@ -94,6 +81,17 @@ const char* INTERNAL_AUTOUNATTEND = R"(<?xml version="1.0" encoding="utf-8"?>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
+        </component>
+    </settings>
+</unattend>
+)";
+
+// Minimal XML template for TPM bypass only
+const char* TPM_ONLY_AUTOUNATTEND = R"(<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            %RUN_SYNC_PE%
         </component>
     </settings>
 </unattend>
@@ -224,117 +222,123 @@ void Task_BuildISO() {
         std::string isoSourceDir = g_InstallDir + "\\ISO";
         if (!DirectoryExists(isoSourceDir)) fs::create_directories(isoSourceDir);
 
-        if (buildOpt_TPM) {
-            myLog.AddLog("[INFO] Injecting TPM Bypass (TPM_fix.cmd)...\n");
-            std::ofstream tpmFile(isoSourceDir + "\\TPM_fix.cmd");
-            if (tpmFile.is_open()) { tpmFile << INTERNAL_TPM_FIX; tpmFile.close(); }
-        }
-
-        if (buildOpt_Unattend) {
+        if (buildOpt_Unattend || buildOpt_TPM) {
             int wimIndex = 1;
             std::string xmlContent;
             myLog.AddLog("[INFO] Generating autounattend.xml...\n");
-            xmlContent = std::string(INTERNAL_AUTOUNATTEND);
+
+            if (buildOpt_Unattend) {
+                // Full unattended template with user creation, OOBE bypass, etc.
+                xmlContent = std::string(INTERNAL_AUTOUNATTEND);
+            }
+            else {
+                // TPM only minimal template that just runs bypass commands during PE
+                xmlContent = std::string(TPM_ONLY_AUTOUNATTEND);
+                myLog.AddLog("[INFO] TPM bypass only mode (no unattended install).\n");
+            }
 
             fs::create_directories(isoSourceDir + "\\sources");
 
-            std::ofstream eiFile(isoSourceDir + "\\sources\\ei.cfg");
-            if (eiFile.is_open()) {
-                eiFile << "[EditionID]\n\n[Channel]\nRetail\n[VL]\n0";
-                eiFile.close();
-                myLog.AddLog("[INFO] Generated ei.cfg to bypass BIOS edition checks.\n");
+            // ei.cfg and disk/partition config will only be used for unattended installs
+            if (buildOpt_Unattend) {
+                std::ofstream eiFile(isoSourceDir + "\\sources\\ei.cfg");
+                if (eiFile.is_open()) {
+                    eiFile << "[EditionID]\n\n[Channel]\nRetail\n[VL]\n0";
+                    eiFile.close();
+                    myLog.AddLog("[INFO] Generated ei.cfg to bypass BIOS edition checks.\n");
+                }
+
+                std::string createPartitionsLogic =
+                    "                        <CreatePartition wcm:action=\"add\">\n"
+                    "                            <Order>1</Order>\n"
+                    "                            <Type>EFI</Type>\n"
+                    "                            <Size>100</Size>\n"
+                    "                        </CreatePartition>\n"
+                    "                        <CreatePartition wcm:action=\"add\">\n"
+                    "                            <Order>2</Order>\n"
+                    "                            <Type>MSR</Type>\n"
+                    "                            <Size>16</Size>\n"
+                    "                        </CreatePartition>\n"
+                    "                        <CreatePartition wcm:action=\"add\">\n"
+                    "                            <Order>3</Order>\n"
+                    "                            <Type>Primary</Type>\n"
+                    "                            <Extend>true</Extend>\n"
+                    "                        </CreatePartition>\n";
+
+                std::string modifyPartitionsLogic =
+                    "                        <ModifyPartition wcm:action=\"add\">\n"
+                    "                            <Order>1</Order>\n"
+                    "                            <PartitionID>1</PartitionID>\n"
+                    "                            <Label>System</Label>\n"
+                    "                            <Format>FAT32</Format>\n"
+                    "                        </ModifyPartition>\n"
+                    "                        <ModifyPartition wcm:action=\"add\">\n"
+                    "                            <Order>2</Order>\n"
+                    "                            <PartitionID>2</PartitionID>\n"
+                    "                        </ModifyPartition>\n"
+                    "                        <ModifyPartition wcm:action=\"add\">\n"
+                    "                            <Order>3</Order>\n"
+                    "                            <PartitionID>3</PartitionID>\n"
+                    "                            <Label>Windows</Label>\n"
+                    "                            <Letter>C</Letter>\n"
+                    "                            <Format>NTFS</Format>\n"
+                    "                        </ModifyPartition>\n";
+
+                std::string diskConfigBlock = "";
+
+                if (buildOpt_WipeDisk) {
+                    myLog.AddLog("[INFO] Disk Wipe ENABLED (Destructive formatting set via XML).\n");
+                    diskConfigBlock =
+                        "            <DiskConfiguration>\n"
+                        "                <WillShowUI>Never</WillShowUI>\n"
+                        "                <Disk wcm:action=\"add\">\n"
+                        "                    <DiskID>0</DiskID>\n"
+                        "                    <WillWipeDisk>true</WillWipeDisk>\n"
+                        "                    <CreatePartitions>\n"
+                        + createPartitionsLogic +
+                        "                    </CreatePartitions>\n"
+                        "                    <ModifyPartitions>\n"
+                        + modifyPartitionsLogic +
+                        "                    </ModifyPartitions>\n"
+                        "                </Disk>\n"
+                        "            </DiskConfiguration>\n"
+                        "            <ImageInstall>\n"
+                        "                <OSImage>\n"
+                        "                    <InstallFrom>\n"
+                        "                        <MetaData wcm:action=\"add\">\n"
+                        "                            <Key>/IMAGE/INDEX</Key>\n"
+                        "                            <Value>" + std::to_string(wimIndex) + "</Value>\n"
+                        "                        </MetaData>\n"
+                        "                    </InstallFrom>\n"
+                        "                    <InstallTo>\n"
+                        "                        <DiskID>0</DiskID>\n"
+                        "                        <PartitionID>3</PartitionID>\n"
+                        "                    </InstallTo>\n"
+                        "                    <WillShowUI>Never</WillShowUI>\n"
+                        "                </OSImage>\n"
+                        "            </ImageInstall>";
+                }
+                else {
+                    myLog.AddLog("[INFO] Disk Wipe DISABLED. Setup will ask for an install partition.\n");
+                    diskConfigBlock =
+                        "            <ImageInstall>\n"
+                        "                <OSImage>\n"
+                        "                    <InstallFrom>\n"
+                        "                        <MetaData wcm:action=\"add\">\n"
+                        "                            <Key>/IMAGE/INDEX</Key>\n"
+                        "                            <Value>" + std::to_string(wimIndex) + "</Value>\n"
+                        "                        </MetaData>\n"
+                        "                    </InstallFrom>\n"
+                        "                    <WillShowUI>OnError</WillShowUI>\n"
+                        "                </OSImage>\n"
+                        "            </ImageInstall>";
+                }
+
+                ReplaceStringInPlace(xmlContent, "%DISK_CONFIGURATION_BLOCK%", diskConfigBlock);
             }
 
-            std::string createPartitionsLogic =
-                "                        <CreatePartition wcm:action=\"add\">\n"
-                "                            <Order>1</Order>\n"
-                "                            <Type>EFI</Type>\n"
-                "                            <Size>100</Size>\n"
-                "                        </CreatePartition>\n"
-                "                        <CreatePartition wcm:action=\"add\">\n"
-                "                            <Order>2</Order>\n"
-                "                            <Type>MSR</Type>\n"
-                "                            <Size>16</Size>\n"
-                "                        </CreatePartition>\n"
-                "                        <CreatePartition wcm:action=\"add\">\n"
-                "                            <Order>3</Order>\n"
-                "                            <Type>Primary</Type>\n"
-                "                            <Extend>true</Extend>\n"
-                "                        </CreatePartition>\n";
-
-            std::string modifyPartitionsLogic =
-                "                        <ModifyPartition wcm:action=\"add\">\n"
-                "                            <Order>1</Order>\n"
-                "                            <PartitionID>1</PartitionID>\n"
-                "                            <Label>System</Label>\n"
-                "                            <Format>FAT32</Format>\n"
-                "                        </ModifyPartition>\n"
-                "                        <ModifyPartition wcm:action=\"add\">\n"
-                "                            <Order>2</Order>\n"
-                "                            <PartitionID>2</PartitionID>\n"
-                "                        </ModifyPartition>\n"
-                "                        <ModifyPartition wcm:action=\"add\">\n"
-                "                            <Order>3</Order>\n"
-                "                            <PartitionID>3</PartitionID>\n"
-                "                            <Label>Windows</Label>\n"
-                "                            <Letter>C</Letter>\n"
-                "                            <Format>NTFS</Format>\n"
-                "                        </ModifyPartition>\n";
-
-            std::string diskConfigBlock = "";
-
-            if (buildOpt_WipeDisk) {
-                myLog.AddLog("[INFO] Disk Wipe ENABLED (Destructive formatting set via XML).\n");
-                diskConfigBlock =
-                    "            <DiskConfiguration>\n"
-                    "                <WillShowUI>Never</WillShowUI>\n"
-                    "                <Disk wcm:action=\"add\">\n"
-                    "                    <DiskID>0</DiskID>\n"
-                    "                    <WillWipeDisk>true</WillWipeDisk>\n"
-                    "                    <CreatePartitions>\n"
-                    + createPartitionsLogic +
-                    "                    </CreatePartitions>\n"
-                    "                    <ModifyPartitions>\n"
-                    + modifyPartitionsLogic +
-                    "                    </ModifyPartitions>\n"
-                    "                </Disk>\n"
-                    "            </DiskConfiguration>\n"
-                    "            <ImageInstall>\n"
-                    "                <OSImage>\n"
-                    "                    <InstallFrom>\n"
-                    "                        <MetaData wcm:action=\"add\">\n"
-                    "                            <Key>/IMAGE/INDEX</Key>\n"
-                    "                            <Value>" + std::to_string(wimIndex) + "</Value>\n"
-                    "                        </MetaData>\n"
-                    "                    </InstallFrom>\n"
-                    "                    <InstallTo>\n"
-                    "                        <DiskID>0</DiskID>\n"
-                    "                        <PartitionID>3</PartitionID>\n"
-                    "                    </InstallTo>\n"
-                    "                    <WillShowUI>Never</WillShowUI>\n"
-                    "                </OSImage>\n"
-                    "            </ImageInstall>";
-            }
-            else {
-                myLog.AddLog("[INFO] Disk Wipe DISABLED. Setup will ask for an install partition.\n");
-                diskConfigBlock =
-                    "            <ImageInstall>\n"
-                    "                <OSImage>\n"
-                    "                    <InstallFrom>\n"
-                    "                        <MetaData wcm:action=\"add\">\n"
-                    "                            <Key>/IMAGE/INDEX</Key>\n"
-                    "                            <Value>" + std::to_string(wimIndex) + "</Value>\n"
-                    "                        </MetaData>\n"
-                    "                    </InstallFrom>\n"
-                    "                    <WillShowUI>OnError</WillShowUI>\n"
-                    "                </OSImage>\n"
-                    "            </ImageInstall>";
-            }
-
-            ReplaceStringInPlace(xmlContent, "%DISK_CONFIGURATION_BLOCK%", diskConfigBlock);
-
+            // TPM bypass commands go into the PE phase
             std::vector<std::string> peCommands;
-            std::vector<std::string> specCommands;
 
             if (buildOpt_TPM) {
                 std::vector<std::string> tpmCmds = {
@@ -348,35 +352,40 @@ void Task_BuildISO() {
                 peCommands.insert(peCommands.end(), tpmCmds.begin(), tpmCmds.end());
             }
 
-            specCommands.push_back("cmd.exe /c reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE /v BypassNRO /t REG_DWORD /d 1 /f");
-
             ReplaceStringInPlace(xmlContent, "%RUN_SYNC_PE%", BuildRunSyncBlock(peCommands));
-            ReplaceStringInPlace(xmlContent, "%RUN_SYNC_SPEC%", BuildRunSyncBlock(specCommands));
 
-            std::string autoLogonBlock;
+            // Specialize pass, OOBE, user accounts only for unattended mode
+            if (buildOpt_Unattend) {
+                std::vector<std::string> specCommands;
+                specCommands.push_back("cmd.exe /c reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE /v BypassNRO /t REG_DWORD /d 1 /f");
 
-            if (buildOpt_AutoLogin) {
-                autoLogonBlock =
-                    "            <AutoLogon>\n"
-                    "                <Password>\n"
-                    "                    <Value>%PASSWORD%</Value>\n"
-                    "                    <PlainText>true</PlainText>\n"
-                    "                </Password>\n"
-                    "                <Enabled>true</Enabled>\n"
-                    "                <LogonCount>9999999</LogonCount>\n"
-                    "                <Username>%USER_NAME%</Username>\n"
-                    "            </AutoLogon>";
+                ReplaceStringInPlace(xmlContent, "%RUN_SYNC_SPEC%", BuildRunSyncBlock(specCommands));
 
-                myLog.AddLog("[INFO] Auto-Login enabled.\n");
+                std::string autoLogonBlock;
+
+                if (buildOpt_AutoLogin) {
+                    autoLogonBlock =
+                        "            <AutoLogon>\n"
+                        "                <Password>\n"
+                        "                    <Value>%PASSWORD%</Value>\n"
+                        "                    <PlainText>true</PlainText>\n"
+                        "                </Password>\n"
+                        "                <Enabled>true</Enabled>\n"
+                        "                <LogonCount>9999999</LogonCount>\n"
+                        "                <Username>%USER_NAME%</Username>\n"
+                        "            </AutoLogon>";
+
+                    myLog.AddLog("[INFO] Auto-Login enabled.\n");
+                }
+                else {
+                    autoLogonBlock = "";
+                    myLog.AddLog("[INFO] Auto-Login disabled (User will be created, but requires manual login).\n");
+                }
+
+                ReplaceStringInPlace(xmlContent, "%AUTOLOGON_BLOCK%", autoLogonBlock);
+                ReplaceStringInPlace(xmlContent, "%USER_NAME%", std::string(unattendUser));
+                ReplaceStringInPlace(xmlContent, "%PASSWORD%", std::string(unattendPass));
             }
-            else {
-                autoLogonBlock = "";
-                myLog.AddLog("[INFO] Auto-Login disabled (User will be created, but requires manual login).\n");
-            }
-
-            ReplaceStringInPlace(xmlContent, "%AUTOLOGON_BLOCK%", autoLogonBlock);
-            ReplaceStringInPlace(xmlContent, "%USER_NAME%", std::string(unattendUser));
-            ReplaceStringInPlace(xmlContent, "%PASSWORD%", std::string(unattendPass));
 
             std::ofstream xmlFile(isoSourceDir + "\\autounattend.xml");
             if (xmlFile.is_open()) { xmlFile << xmlContent; xmlFile.close(); }
