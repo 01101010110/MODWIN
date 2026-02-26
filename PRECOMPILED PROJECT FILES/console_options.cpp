@@ -143,7 +143,7 @@ void AppLog::DrawContent() {
     if (isTaskRunning) {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.05f, 0.05f, 1.0f));
         if (ImGui::Button("STOP OPERATION")) {
-            ImGui::OpenPopup("StopConfirm");
+            ImGui::OpenPopup("Confirm Stop Operation");
         }
         ImGui::PopStyleColor();
     }
@@ -154,7 +154,10 @@ void AppLog::DrawContent() {
     }
 
     // Modal to confirm killing active background processes
-    if (ImGui::BeginPopupModal("StopConfirm", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+    ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.35f, 0.10f, 0.55f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.45f, 0.15f, 0.65f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_TitleBgCollapsed, ImVec4(0.25f, 0.08f, 0.40f, 1.0f));
+    if (ImGui::BeginPopupModal("Confirm Stop Operation", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Are you sure you want to forcibly stop the current operation?\n\nThis will kill background processes (dism, mkisofs) and clear locks.");
         ImGui::Separator();
 
@@ -163,8 +166,13 @@ void AppLog::DrawContent() {
 
             std::thread([]() {
                 myLog.AddLog("[ALERT] Stopping... Killing background processes.\n");
-                ExecuteSilent("taskkill /F /IM dism.exe", true, nullptr);
-                ExecuteSilent("taskkill /F /IM mkisofs.exe", true, nullptr);
+
+                std::string result;
+                result = RunCommandCapture("taskkill /F /IM dism.exe");
+                if (result.find("SUCCESS") != std::string::npos) myLog.AddLog("[INFO] Killed dism.exe\n");
+
+                result = RunCommandCapture("taskkill /F /IM mkisofs.exe");
+                if (result.find("SUCCESS") != std::string::npos) myLog.AddLog("[INFO] Killed mkisofs.exe\n");
 
                 myLog.AddLog("[ALERT] Running mountpoint cleanup to unlock folders.\n");
                 ExecuteSilent("dism /Cleanup-Mountpoints", true, nullptr);
@@ -181,6 +189,7 @@ void AppLog::DrawContent() {
         }
         ImGui::EndPopup();
     }
+    ImGui::PopStyleColor(3);
 
     if (ImGui::BeginPopup("Options")) {
         ImGui::Checkbox("Auto-scroll", &AutoScroll);
