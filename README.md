@@ -23,7 +23,7 @@ Double click on your Windows ISO to mount it.
 
 Take note of what drive Windows mounted the ISO to, then close the ISO. (for me it mounted to drive F)
 
-![NOTE DRIVE](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/2.png?raw=true)
+![NOTE DRIVE](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/331.png?raw=true)
 
 
 ## Step 2
@@ -128,6 +128,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
