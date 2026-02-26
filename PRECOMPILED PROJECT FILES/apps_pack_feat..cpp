@@ -29,6 +29,55 @@ char SafeToLower(char c) {
     return std::tolower(static_cast<unsigned char>(c));
 }
 
+// Shortens long package, app, and feature names for display in window titles
+std::string SimplifyName(const std::string& fullName) {
+    std::string name = fullName;
+
+    // Strip everything after ~ (package hashes and version info)
+    size_t tildePos = name.find('~');
+    if (tildePos != std::string::npos) name = name.substr(0, tildePos);
+
+    // Strip everything after _ (appx version and architecture info)
+    size_t underPos = name.find('_');
+    if (underPos != std::string::npos) name = name.substr(0, underPos);
+
+    // Remove common prefixes
+    std::vector<std::string> prefixes = {
+        "Microsoft-Windows-", "Microsoft-OneCore-", "Microsoft.",
+        "Microsoft-", "Windows-", "MicrosoftWindows."
+    };
+    for (const auto& prefix : prefixes) {
+        if (name.length() > prefix.length() && _strnicmp(name.c_str(), prefix.c_str(), prefix.length()) == 0) {
+            name = name.substr(prefix.length());
+            break;
+        }
+    }
+
+    // Remove common suffixes
+    std::vector<std::string> suffixes = {
+        "-FOD-Package", "-Package", "-FoD", "-FOD", "-WOW64", "-Deployment"
+    };
+    for (const auto& suffix : suffixes) {
+        if (name.length() > suffix.length()) {
+            size_t pos = name.length() - suffix.length();
+            if (_strnicmp(name.c_str() + pos, suffix.c_str(), suffix.length()) == 0) {
+                name = name.substr(0, pos);
+            }
+        }
+    }
+
+    // Replace separators with spaces
+    for (char& c : name) {
+        if (c == '-' || c == '.') c = ' ';
+    }
+
+    // Trim trailing spaces
+    while (!name.empty() && name.back() == ' ') name.pop_back();
+
+    if (name.empty()) return fullName;
+    return name;
+}
+
 // Arranges items alphabetically from A to Z
 bool CompareItems(const ItemData& a, const ItemData& b) {
     return _stricmp(a.Name.c_str(), b.Name.c_str()) < 0;
@@ -261,10 +310,15 @@ void DrawChecklistUI(const char* label, std::vector<ItemData>& items, void(*scan
         for (size_t i = 0; i < items.size(); i++) {
             if (items[i].ShowDetails) {
                 // Creates a unique name for the window based on the item index
-                std::string windowTitle = "Details: " + items[i].Name + "##Dtl" + std::to_string(i);
+                std::string windowTitle = "Knowledge Base - " + SimplifyName(items[i].Name) + "##Dtl" + std::to_string(i);
 
                 // Sets a default size for the window the first time it opens
                 ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_FirstUseEver);
+
+                // Pink title bar
+                ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.35f, 0.10f, 0.55f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.45f, 0.15f, 0.65f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_TitleBgCollapsed, ImVec4(0.25f, 0.08f, 0.40f, 1.0f));
 
                 // Creates the "X" close button
                 if (ImGui::Begin(windowTitle.c_str(), &items[i].ShowDetails, ImGuiWindowFlags_NoCollapse)) {
@@ -306,7 +360,7 @@ void DrawChecklistUI(const char* label, std::vector<ItemData>& items, void(*scan
 
                         // Hover and Click
                         if (ImGui::IsItemHovered()) {
-                            ImGui::SetMouseCursor(ImGuiMouseCursor_Hand); // Change cursor to hand
+                            ImGui::SetMouseCursor(ImGuiMouseCursor_Hand); 
                             if (ImGui::IsMouseClicked(0)) {
                                 ShellExecuteA(NULL, "open", linkUrl.c_str(), NULL, NULL, SW_SHOWNORMAL);
                             }
@@ -326,6 +380,7 @@ void DrawChecklistUI(const char* label, std::vector<ItemData>& items, void(*scan
                     }
                 }
                 ImGui::End();
+                ImGui::PopStyleColor(3);
             }
         }
     }
@@ -382,12 +437,15 @@ void DrawChecklistUI(const char* label, std::vector<ItemData>& items, void(*scan
     if (std::string(label).find("(Appx)") != std::string::npos) {
         ImGui::SameLine();
         if (ImGui::Button("Add Custom Appx")) {
-            ImGui::OpenPopup("AddAppxModal");
+            ImGui::OpenPopup("Install Custom Appx Package");
         }
     }
 
     // Popup window for adding a custom file
-    if (ImGui::BeginPopupModal("AddAppxModal", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+    ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.35f, 0.10f, 0.55f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.45f, 0.15f, 0.65f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_TitleBgCollapsed, ImVec4(0.25f, 0.08f, 0.40f, 1.0f));
+    if (ImGui::BeginPopupModal("Install Custom Appx Package", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Install Custom Appx/Msix Package");
         ImGui::Separator();
         ImGui::Text("You can download offline .appx or .msixbundle files from:");
@@ -418,17 +476,21 @@ void DrawChecklistUI(const char* label, std::vector<ItemData>& items, void(*scan
         }
         ImGui::EndPopup();
     }
+    ImGui::PopStyleColor(3);
 
     // Shows add Custom Package button only if viewing the "Packages" list
     if (std::string(label).find("Package") != std::string::npos) {
         ImGui::SameLine();
         if (ImGui::Button("Add Custom Package")) {
-            ImGui::OpenPopup("AddPackageModal");
+            ImGui::OpenPopup("Install Custom Package");
         }
     }
 
     // Popup window for adding a custom package file
-    if (ImGui::BeginPopupModal("AddPackageModal", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+    ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.35f, 0.10f, 0.55f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.45f, 0.15f, 0.65f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_TitleBgCollapsed, ImVec4(0.25f, 0.08f, 0.40f, 1.0f));
+    if (ImGui::BeginPopupModal("Install Custom Package", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Install Custom .cab or .msu Package");
         ImGui::Separator();
         ImGui::Text("You can download offline update packages from the Microsoft Update Catalog:");
@@ -459,6 +521,7 @@ void DrawChecklistUI(const char* label, std::vector<ItemData>& items, void(*scan
         }
         ImGui::EndPopup();
     }
+    ImGui::PopStyleColor(3);
 
     ImGui::Spacing(); ImGui::Separator();
 
