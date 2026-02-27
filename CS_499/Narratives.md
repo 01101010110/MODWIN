@@ -1,4 +1,4 @@
-The artifact I chose to use for all three of my enhancements is my program called MODWIN. MODWIN was created in 2020 (initially only as a few batch files) and it is an open-source tool that will help users to modify their Windows ISOs in any way they want to (removing bloatware, adding custom files, custom registry entries, optional auto-installer, etc.). 
+The artifact I chose to use for all three of my enhancements is my program called MODWIN. MODWIN was created in 2022 (initially only as a few batch files) and it is an open-source tool that will help users to modify their Windows ISOs in any way they want to (removing bloatware, adding custom files, custom registry entries, optional auto-installer, etc.). 
 
 I chose to include MODWIN in my ePortfolio because this project is the reason I came to college. I wanted to learn how to build a frontend for my program and I couldn’t understand how to do it myself before college. I set out at the beginning of this term with the goal of improving my backend skills and learning frontend skills, and thanks to my Professor I was allowed to work on this project the entire term to achieve these goals. 
 
