@@ -60,13 +60,17 @@ You can then select option 2 to mount the WIM.
 
 ## Step 5
 
-Once your WIM is mounted, you can access the apps, packages, and features installed on it. You may also remove any apps and packages you like, and enable / disable features. MODWIN also now has a built in database that will give you some information about what each item is and what it does when you hover over it. Right click on the item to pin it's knowledge base entry, to get a reference link that will take you to either the Microsoft Store Page for the item, or the Microsoft Learn Page for the item. 
+Once your WIM is mounted, you can access the apps, packages, and features installed on it. You may also remove any apps and packages you like, and enable / disable features. MODWIN also now has a built in database that will give you some information about what each item is and what it does when you hover over it. 
+
+You are able to remove any apps and packages by just ticking the box next to them and hitting the big remove button below them. There's some buttons provided to help if one wanted to select or deselect all, select only "safe" or "cautioned" items, or select all enabled or disabled features. 
 
 Please note removing any of these apps, packages, or features may have unintended consequences in the future, so be certain you need to remove them before you do. The items that are green and yellow, as of this current version of Windows, wihen removed the ISO will still boot. The consequences have not been tested, only the ability to boot and open a webpage.
 
 ### App Manager 
-![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/299.png?raw=true)
+Hover over an item to see some information about what it does.
+![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/777.png?raw=true)
 
+Right click on the item to pin it's knowledge base entry, to get a reference link that will take you to either the Microsoft Store Page for the item, or the Microsoft Learn Page for the item. 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/144.png?raw=true)
 
 You are able to add your own apps (Microsoft Store apps you download from https://store.rg-adguard.net/)
@@ -126,6 +130,7 @@ If you ever need to unmount your image, you can do that here. You are also able 
 This project would not have been possible without the help and support from all the lovely people below <3
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
+
 
 
 
