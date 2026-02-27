@@ -321,6 +321,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
                     if (buildOpt_Unattend) {
                         ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.4f, 0.4f, 1.0f));
                         ImGui::TextWrapped("WARNING: Checking this will AUTOMATICALLY WIPE the entire installation drive of the computer / vm you are installing to! Then Windows will automatically install itself.");
+                        ImGui::TextWrapped("WARNING: Credentials saved in plaintext on the ISO.Remember to delete your ISO or USB drive after installation for your safety.");
                         ImGui::PopStyleColor();
                         ImGui::Indent(20.0f);
                         ImGui::Spacing();
@@ -332,7 +333,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
                         if (buildOpt_AutoLogin) {
                             ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.4f, 0.4f, 1.0f));
                             ImGui::TextWrapped("WARNING: This PC will auto-unlock for anyone physically present.");
-                            ImGui::TextWrapped("WARNING: Credentials saved in plaintext on the ISO.Remember to delete your ISO or USB drive after installation for your safety.");
                             ImGui::PopStyleColor();
                         }
                         ImGui::Unindent(20.0f);
