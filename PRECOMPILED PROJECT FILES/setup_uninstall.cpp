@@ -87,6 +87,13 @@ bool DirectoryExists(const std::string& dirName) {
     return false;
 }
 
+// Checks if the path is a drive root (e.g. C:\ or D:\)
+bool IsDriveRoot(const std::string& path) {
+    fs::path p = fs::path(path);
+    p = p.lexically_normal();
+    return (p == p.root_path());
+}
+
 // Verifies if the app is running with admin
 bool IsUserAdmin() {
     BOOL isAdmin = FALSE;
@@ -153,7 +160,7 @@ void SetupInstallDirectory() {
 
     // Clears out folder paths that are off limits
     if (!g_InstallDir.empty()) {
-        if (g_InstallDir == "C:\\Users" || g_InstallDir == "C:\\Windows") {
+        if (g_InstallDir == "C:\\Users" || g_InstallDir == "C:\\Windows" || IsDriveRoot(g_InstallDir)) {
             g_InstallDir = "";
         }
         else if (!CanWriteToPath(g_InstallDir)) {
@@ -177,6 +184,12 @@ void SetupInstallDirectory() {
                 }
             }
             else {
+                // Rejects drive roots like C:\ or D
+                if (IsDriveRoot(chosen)) {
+                    MessageBoxA(NULL, "You cannot install directly to the root of a drive (e.g. C:\\).\nPlease select or create a subfolder instead.", "Invalid Location", MB_OK | MB_ICONWARNING);
+                    continue;
+                }
+
                 fs::path p = fs::path(chosen);
                 std::string filename = p.filename().string();
 
@@ -241,6 +254,22 @@ void Task_Uninstall() {
 
     myLog.AddLog("[INFO] Starting Uninstall Process...\n");
 
+    // Refuses to run if the stored path looks dangerous or too short to be real
+    if (g_InstallDir.length() < 10 || g_InstallDir == "C:\\" || g_InstallDir == "C:\\Windows" || g_InstallDir == "C:\\Users") {
+        myLog.AddLog("[ERROR] Install path looks unsafe, refusing to delete: %s\n", g_InstallDir.c_str());
+        MessageBoxA(NULL, "The install path looks invalid or dangerous.\nUninstall has been aborted for safety.", "Uninstall Aborted", MB_OK | MB_ICONERROR);
+        isTaskRunning = false;
+        return;
+    }
+
+    // Stops the uninstall if the path contains characters that could break the cleanup script
+    if (g_InstallDir.find('"') != std::string::npos || g_InstallDir.find('\n') != std::string::npos) {
+        myLog.AddLog("[ERROR] Install path contains unsafe characters. Aborting uninstall.\n");
+        MessageBoxA(NULL, "The install path contains characters that are not allowed.\nUninstall has been aborted for safety.", "Uninstall Aborted", MB_OK | MB_ICONERROR);
+        isTaskRunning = false;
+        return;
+    }
+
     // Tries to shut down any open images before deleting the folder
     bool unmountSuccess = false;
     while (!unmountSuccess) {
@@ -264,7 +293,9 @@ void Task_Uninstall() {
     }
 
     myLog.AddLog("[INFO] Deleting Registry Keys...\n");
-    RegDeleteKeyA(HKEY_CURRENT_USER, "Software\\MODWIN");
+
+    // Uses RegDeleteTreeA so subkeys get wiped too
+    RegDeleteTreeA(HKEY_CURRENT_USER, "Software\\MODWIN");
 
     myLog.AddLog("[INFO] Scheduling final deletion...\n");
 
@@ -278,12 +309,18 @@ void Task_Uninstall() {
         script << "@echo off\n";
         script << "timeout /t 3 /nobreak > nul\n";
 
-        // Keeps trying to delete until the files are finally unlocked
+        // Tracks how many times the delete has been attempted
+        script << "set count=0\n";
+
+        // Keeps trying to delete until it works or the attempt limit is hit
         script << ":retry\n";
         script << "rmdir /s /q \"" << g_InstallDir << "\"\n";
+        script << "set /a count+=1\n";
         script << "if exist \"" << g_InstallDir << "\" (\n";
-        script << "    timeout /t 1 /nobreak > nul\n";
-        script << "    goto retry\n";
+        script << "    if %count% lss 10 (\n";
+        script << "        timeout /t 2 /nobreak > nul\n";
+        script << "        goto retry\n";
+        script << "    )\n";
         script << ")\n";
 
         script << "del \"%~f0\"\n";
