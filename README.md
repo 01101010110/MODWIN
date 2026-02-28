@@ -131,7 +131,10 @@ This project would not have been possible without the help and support from all 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
 
 ## Release Info
-Still working out a few bugs before shipping v7. Also writing the ARM version to be released along with v7, but in a separate file.
+Still working out a few bugs before shipping v7. - The Pro and other versions are not auto installing with unattend due to index 1 being selected. Working on dism command to auto detect the image and run the right unattend file commands.
+
+Also writing the ARM version to be released along with v7, but in a separate file.
+
 
 
 
