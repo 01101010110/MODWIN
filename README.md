@@ -115,7 +115,6 @@ When you are done building your ISO, you should uninstall MODWIN. This way the n
 ### Stop Operation
 OPTIONAL: If you ever need to stop an operation, the red button can handle that for you. 
 
-
 After the stop operation command completes, you will see it's output in the console, you should be able to resume normally. However, if you were trying to build an ISO prior to running the stop command, you will have to rebuild it twice.
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/30.png?raw=true)
 
@@ -131,6 +130,8 @@ This project would not have been possible without the help and support from all 
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/26.png?raw=true)
 ![Open MODWIN](https://github.com/01101010110/MODWIN/blob/v7/PICTURE_INSTRUCTIONS/27.png?raw=true)
 
+## Release Info
+Still working out a few bugs before shipping v7. Also writing the ARM version to be released along with v7, but in a separate file.
 
 
 
