@@ -7,7 +7,7 @@ A tool to help users to customize a Windows 10 or 11 ISO in any way they want to
 
 Click on the **How To Use MODWIN** thumbnail below this sentence for video instructions, or continue reading below for written instructions.
 
-[![Click for Video](https://img.youtube.com/vi/P9A3MBgaSCM/hqdefault.jpg)](https://youtu.be/P9A3MBgaSCM)
+VIDEO WILL BE ADDED WHEN V7 IS FULLY COMPLETE
 
 ## Step 1
 A Windows Installation ISO is required to use MODWIN. 
@@ -134,6 +134,7 @@ This project would not have been possible without the help and support from all 
 Still working out a few bugs before shipping v7. - The Pro and other versions are not auto installing with unattend due to index 1 being selected. Working on dism command to auto detect the image and run the right unattend file commands.
 
 Also writing the ARM version to be released along with v7, but in a separate file.
+
 
 
 
