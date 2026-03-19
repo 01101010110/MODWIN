@@ -3,9 +3,8 @@
 A tool to help users to customize a Windows 10 or 11 ISO in any way they want to. 
 
 ## Release Info
-Still working out a few bugs before shipping v7. - Fixing the education, pro, workstation, abd all N variants to auto install. 
-
-Also writing the ARM version to be released along with v7, but in a separate file.
+Still working out a few bugs before shipping v7. - Fixed autounattend settings for all Win 11 editions (home, pro, education, workstation, and all N variants), working on Windows 10 now
+Also writing in support for ARM isos, MODWIN should be able to detect the difference and add the appropriate files in accordance to the user's selections. 
 
 ## How To Use MODWIN
 
